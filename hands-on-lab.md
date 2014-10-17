@@ -24,7 +24,7 @@ The hands-on lab includes the following exercises:
 
 - [Add O365 iOS sdk's libraries to a project](#exercise1)
 - [Create a Client class for all operations](#exercise2)
-- [Create a Client class for all operations](#exercise2)
+- [Connect actions in the view to ProjectClient class](#exercise3)
 
 <a name="exercise1"></a>
 ##Exercise 1: Add O365 iOS sdk's libraries to a project
@@ -60,14 +60,14 @@ and create a client class with empty methods in it to handle the requests to the
     To manage Projects and its References, we have two lists called "Research Projects" and 
     "Research References" in a Office365 Sharepoint tenant.
     Also we have permissions to add, edit and delete items from a list.
-    We will use a files-sdk in order to access the environment using two classes called "ListEntity"
-    and "ListItem" that have all necesary data to manage the content.
+    We will use a files-sdk in order to access the environment using two classes called 
+    "ListEntity" and "ListItem" that have all necesary data to manage the content.
 
     --We continue with the O365-lists-sdk library import to the project--
     ```
 
 
-###Task 1 - Import the library
+###Task 2 - Import the library
 01. Download a copy of the library using the terminal:
 
     ```
@@ -96,9 +96,69 @@ and create a client class with empty methods in it to handle the requests to the
 In this exercise you will create a client class for all the operations related to Projects and References. This class will connect to the **office365-lists-sdk**
 and do some parsing and JSON handling
 
-###Task 1 - Create the ProjectClient class
+###Task 1 - Add the ProjectClient methods
+
+01. Under **client** group, you will see the **ProjectClient.m** class. Open it and check the empty methods:
+
+    ```
+    - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
+    - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback: (void (^)(BOOL success, NSError *error))callback;
+    - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
+    - (NSURLSessionDataTask *)updateProject:(ListItem *)project callback:(void (^)(BOOL, NSError *))callback;
+    - (NSURLSessionDataTask *)updateReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback;
+    - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback;
+    ```
+
+02. Each method is responsible of retrieve data from the O365 tenant and parse it, or manage add, edit, delete actions.
+
+    ```
+    - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
+    - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback: (void (^)(BOOL success, NSError *error))callback;
+    - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
+    - (NSURLSessionDataTask *)updateProject:(ListItem *)project callback:(void (^)(BOOL, NSError *))callback;
+    - (NSURLSessionDataTask *)updateReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback;
+    - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback;
+    ```
+
+03. Build the project and check everything is ok.
 
 
+
+<a name="exercise3"></a>
+##Exercise 3: Connect actions in the view to ProjectClient class
+In this exercise you will navigate in every controller class of the project, in order to connect each action (from buttons, lists and events) with one ProjectClient operation.
+
+###Task1 - Wiring up ProjectTableView
+
+01.
+
+###Task2 - Wiring up CreateProjectView
+
+01.
+
+###Task3 - Wiring up ProjectDetailsView
+
+01.
+
+###Task4 - Wiring up EditProjectView
+
+01.
+
+###Task5 - Wiring up ReferencesTableView
+
+01.
+
+###Task6 - Wiring up CreateReferenceView
+
+01.
+
+###Task7 - Wiring up ReferenceDetailsView
+
+01.
+
+###Task8 - Wiring up EditReferenceView
+
+01.
 
 
 
