@@ -51,14 +51,17 @@ and create a client class with empty methods in it to handle the requests to the
     ```
     Application:
     You will se a login page with buttons to access the application and to clear credentials.
-    Once authenticated, a Project list will appear with one fake entry. Also there is an add Project screen (tapping the plus sign),
-    and a Project Details screen (selecting a row in the table) with References that contains a Title, Comments and a Url that can be opened
+    Once authenticated, a Project list will appear with one fake entry. Also there is an add 
+    Project screen (tapping the plus sign), and a Project Details screen (selecting a row in 
+    the table) with References that contains a Title, Comments and a Url that can be opened
     in Safari app. Finally we can access to the screens to manage the References.
 
     Environment:
-    To manage Projects and its References, we have two lists called "Research Projects" and "Research References" in a Office365 Sharepoint tenant.
+    To manage Projects and its References, we have two lists called "Research Projects" and 
+    "Research References" in a Office365 Sharepoint tenant.
     Also we have permissions to add, edit and delete items from a list.
-    We will use a files-sdk in order to access the environment using two classes called "ListEntity" and "ListItem" that have all necesary data to manage the content.
+    We will use a files-sdk in order to access the environment using two classes called "ListEntity"
+    and "ListItem" that have all necesary data to manage the content.
 
     --We continue with the O365-lists-sdk library import to the project--
     ```
