@@ -630,10 +630,10 @@ in order to have access to the o365-lists-sdk.
     }];
     [listProjectsTask resume];
 }
-```
+    ```
 
-Create Project List
-```
+    Create Project List
+    ```
 -(void)createProjectList:(UIActivityIndicatorView *) spinner{
     ProjectClient* client = [ProjectClient getClient:self.token];
     
@@ -646,6 +646,7 @@ Create Project List
     [createProjectListTask resume];
 }
     ```
+
 04. Now fill the table with the projects information
 
     ```
@@ -661,7 +662,7 @@ Create Project List
 }
     ```
 
- 05.Get projects count
+ 05. Get projects count
     
     ```
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -670,7 +671,7 @@ Create Project List
 }
     ```
 
- 06.Row selection
+ 06. Row selection
     
     ```
     - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -681,7 +682,7 @@ Create Project List
 }
     ```
 
-07. Set the selectedProject when the user tap a project in the list:
+07. Set the selectedProject when navigate forward
 
     ```
     - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -691,7 +692,7 @@ Create Project List
         controller.token = self.token;
     }else{
         ProjectDetailsViewController *controller = (ProjectDetailsViewController *)segue.destinationViewController;
-        controller.project = currentEntity;
+        //controller.project = currentEntity;
         controller.token = self.token;
     }
     
@@ -704,19 +705,316 @@ Create Project List
     ListItem* currentEntity;
     ```
 
-09. Build and Run the app, and check everything is ok.
+09. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
 
 ###Task2 - Wiring up CreateProjectView
 
-01.
+01. Open **CreateViewController.m** and add the body to the **createProject** method
+
+    ```
+    -(void)createProject{
+    if(![self.FileNameTxt.text isEqualToString:@""]){
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.view addSubview:spinner];
+        spinner.hidesWhenStopped = YES;
+        
+        [spinner startAnimating];
+        
+        ProjectClient* client = [ProjectClient getClient:self.token];
+        
+        ListItem* newProject = [[ListItem alloc] init];
+        
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[@"Title",self.FileNameTxt.text] forKeys:@[@"_metadata",@"Title"]];
+        [newProject initWithDictionary:dic];
+        
+        NSURLSessionTask* task = [client addProject:newProject callback:^(BOOL success, NSError *error) {
+            if(error == nil){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                NSString *errorMessage = [@"Add Project failed. Reason: " stringByAppendingString: error.description];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Cancel", nil];
+                [alert show];
+            }
+        }];
+        [task resume];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Complete all fields" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        });
+    }
+}
+    ```
+
+02. Add the import sentence to the **ProjectClient**
+
+    ```
+    #import "ProjectClient.h"
+    ```
+
+03. Build and Run the app, and check everything is ok. Now you can create a new project with the plus button in the left corner of the main screen
+
 
 ###Task3 - Wiring up ProjectDetailsView
 
-01.
+01. Open **ProjectDetailsViewController.h** and add the following variables
+
+    ```
+    @property ListItem* project;
+    @property ListItem* selectedReference;
+    ```
+
+    And the import sentence
+    #import "office365-lists-sdk/ListItem.h"
+
+02. Set the value when the user selects a project in the list. On **ProjectTableViewController.m**
+
+    Uncomment this line in the **prepareForSegue:sender:** method
+    ```
+    //controller.project = currentEntity;
+    ```
+
+03. Back to the **ProjectDetailsViewController.m** Set the fields and screen title text on the **viewDidLoad** method
+
+    ```
+    -(void)viewDidLoad{
+    self.projectName.text = self.project.getTitle;
+    self.navigationItem.title = self.project.getTitle;
+    self.navigationItem.rightBarButtonItem.title = @"Done";
+    self.selectedReference = false;
+    self.projectNameField.hidden = true;
+    
+    
+    [self loadData];
+    }
+    ```
+
+04. Load the references
+
+    Load data method
+    ```
+    -(void)loadData{
+    //Create and add a spinner
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    [spinner startAnimating];
+    
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    NSURLSessionTask* task = [client getList:@"Research References" callback:^(ListEntity *list, NSError *error) {
+        
+        //If list doesn't exists, create one with name Research References
+        if(list){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getReferences:spinner];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createReferencesList:spinner];
+            });
+        }
+        
+    }];
+    [task resume];
+    
+}
+    ```
+
+    Get References Method
+    ```
+        -(void)getReferences:(UIActivityIndicatorView *) spinner{
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    NSURLSessionTask* listReferencesTask = [client getReferencesByProjectId:self.project.Id callback:^(NSMutableArray *listItems, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.references = [listItems copy];
+                [self.refencesTable reloadData];
+                [spinner stopAnimating];
+            });
+        
+        }];
+
+    [listReferencesTask resume];
+}
+    ```
+
+    Create References Lists if not exists
+    ```
+    -(void)createReferencesList:(UIActivityIndicatorView *) spinner{
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    ListEntity* newList = [[ListEntity alloc ] init];
+    [newList setTitle:@"Research References"];
+    
+    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
+        [spinner stopAnimating];
+    }];
+    [createProjectListTask resume];
+}
+    ```
+
+05. Fill the table cells
+
+    ```
+    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString* identifier = @"referencesListCell";
+    ReferencesTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
+    
+    ListItem *item = [self.references objectAtIndex:indexPath.row];
+    NSDictionary *dic =[item getData:@"URL"];
+    cell.titleField.text = [dic valueForKey:@"Description"];
+    cell.urlField.text = [dic valueForKey:@"Url"];
+    
+    return cell;
+}
+    ```
+
+06. Get the references count
+    
+    ```
+    - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.references count];
+}
+    ```
+
+07. Row selection
+
+    ```
+    - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedReference= [self.references objectAtIndex:indexPath.row];    
+    [self performSegueWithIdentifier:@"referenceDetail" sender:self];
+}
+    ```
+
+08. Forward navigation
+
+    ```
+    - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"createReference"]){
+        CreateReferenceViewController *controller = (CreateReferenceViewController *)segue.destinationViewController;
+        controller.project = self.project;
+        controller.token = self.token;
+    }else if([segue.identifier isEqualToString:@"referenceDetail"]){
+        ReferenceDetailsViewController *controller = (ReferenceDetailsViewController *)segue.destinationViewController;
+        controller.selectedReference = self.selectedReference;
+        controller.token = self.token;
+    }else if([segue.identifier isEqualToString:@"editProject"]){
+        EditProjectViewController *controller = (EditProjectViewController *)segue.destinationViewController;
+        controller.project = self.project;
+        controller.token = self.token;
+    }
+    self.selectedReference = false;
+}
+    ```
+
+    ```
+    - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender{
+    return ([identifier isEqualToString:@"referenceDetail"] && self.selectedReference) || [identifier isEqualToString:@"createReference"] || [identifier isEqualToString:@"editProject"];
+}
+    ```
+
 
 ###Task4 - Wiring up EditProjectView
 
-01.
+01. Adding a variable for the selected project in the project list screen. 
+
+    First, add a variable **project** in the **EditProjectViewController.h**
+    ```
+    @property ListItem* project;
+    ```
+
+    And the import sentence
+    ```
+    #import "office365-lists-sdk/ListItem.h"
+    ```
+
+
+
+03. Back to **EditProjectViewController.m**. Add the body for **updateProject**
+
+    ```
+    -(void)updateProject{
+    if(![self.ProjectNameTxt.text isEqualToString:@""]){
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.view addSubview:spinner];
+        spinner.hidesWhenStopped = YES;
+        
+        [spinner startAnimating];
+        
+        ListItem* editedProject = [[ListItem alloc] init];
+        
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[@"Title",self.ProjectNameTxt.text, self.project.Id] forKeys:@[@"_metadata",@"Title",@"Id"]];
+        [editedProject initWithDictionary:dic];
+        
+        ProjectClient* client = [ProjectClient getClient:self.token];
+        
+        NSURLSessionTask* task = [client updateProject:editedProject callback:^(BOOL result, NSError *error) {
+            if(error == nil){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    ProjectTableViewController *View = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-3];
+                    [self.navigationController popToViewController:View animated:YES];
+                });
+            }else{
+                NSString *errorMessage = [@"Update Project failed. Reason: " stringByAppendingString: error.description];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Cancel", nil];
+                [alert show];
+            }
+        }];
+        [task resume];
+        
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Complete all fields" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        });
+    }
+}
+    ```
+
+04. Do the same for **deleteProject**
+
+    ```
+    -(void)deleteProject{
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    
+    [spinner startAnimating];
+    
+    ProjectClient* client = [ProjectClient getClient:self.token];
+
+    NSURLSessionTask* task = [client deleteListItem:@"Research Projects" itemId:self.project.Id callback:^(BOOL result, NSError *error) {
+        if(error == nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [spinner stopAnimating];
+                
+                ProjectTableViewController *View = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-3];
+                [self.navigationController popToViewController:View animated:YES];
+            });
+        }else{
+            NSString *errorMessage = [@"Delete Project failed. Reason: " stringByAppendingString: error.description];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Cancel", nil];
+            [alert show];
+        }
+    }];
+    
+    [task resume];
+}
+    ```
+
 
 ###Task5 - Wiring up ReferencesTableView
 
