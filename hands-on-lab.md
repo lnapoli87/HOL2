@@ -431,7 +431,105 @@ you have another **client** folder.
 
 05. Build the project and check everything is ok.
 
+07. In **ProjectClientEx.h** header file, add the following declaration between **@interface** and **@end**
 
+    ```
+    - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
+    ```
+    And the import sentence:
+    ```
+    #import "office365-lists-sdk/ListItem.h"
+    ```
+
+08. Now on **ProjectClientEx.m** add the method body:
+
+    ```
+const NSString *apiUrl = @"/_api/lists";
+
+- (NSURLSessionDataTask *)addReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research References" urlencode]];
+    
+    NSString *json = [[NSString alloc] init];
+    json = @"{ 'URL': %@, 'Comments':'%@', 'Project':'%@'}";
+    
+    NSString *formatedJson = [NSString stringWithFormat:json, [reference getData:@"URL"], [reference getData:@"Comments"], [reference getData:@"Project"]];
+    
+    NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
+    
+    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential
+                                                                         url:url
+                                                                   bodyArray: jsonData];
+    
+    NSString *method = (NSString*)[[Constants alloc] init].Method_Post;
+    
+    return [connection execute:method callback:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        ListEntity *list;
+        
+        if(error == nil){
+            list = [[ListEntity alloc] initWithJson:data];
+        }
+        
+        callback(list, error);
+    }];
+    return 0;
+}
+    ```
+
+09. Add the **JSON** handling methods:
+
+    Parsing Results
+    ```
+    - (NSMutableArray *)parseDataArray:(NSData *)data{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    NSError *error ;
+    
+    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[self sanitizeJson:data]
+                                                               options: NSJSONReadingMutableContainers
+                                                                 error:&error];
+    
+    NSArray *jsonArray = [[jsonResult valueForKey : @"d"] valueForKey : @"results"];
+    
+    if(jsonArray != nil){
+        for (NSDictionary *value in jsonArray) {
+            [array addObject: value];
+        }
+    }else{
+        NSDictionary *jsonItem =[jsonResult valueForKey : @"d"];
+        
+        if(jsonItem != nil){
+            [array addObject:jsonItem];
+        }
+    }
+    
+    return array;
+}
+    ```
+
+    Sanitizing JSON
+    ```
+ - (NSData*) sanitizeJson : (NSData*) data{
+    NSString * dataString = [[NSString alloc ] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString* replacedDataString = [dataString stringByReplacingOccurrencesOfString:@"E+308" withString:@"E+127"];
+    
+    NSData* bytes = [replacedDataString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return bytes;
+}
+    ```
+
+10. Add the following import sentences on **ProjectClientEx.m**
+
+    ```
+#import "office365-base-sdk/HttpConnection.h"
+#import "office365-base-sdk/Constants.h"
+#import "office365-base-sdk/NSString+NSStringExtensions.h"
+    ```
+
+11. Build and Run the application and check everything is ok.
 
 <a name="exercise3"></a>
 ##Exercise 3: Connect actions in the view to ProjectClient class
