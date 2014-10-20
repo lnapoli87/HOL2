@@ -768,8 +768,10 @@ in order to have access to the o365-lists-sdk.
     @property ListItem* selectedReference;
     ```
 
-    And the import sentence
+    And add the import sentence
+    ```
     #import "office365-lists-sdk/ListItem.h"
+    ``
 
 02. Set the value when the user selects a project in the list. On **ProjectTableViewController.m**
 
@@ -923,10 +925,11 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
+09. Build and Run the app, and check everything is ok. Now you can see the references from a project
 
 ###Task4 - Wiring up EditProjectView
 
-01. Adding a variable for the selected project in the project list screen. 
+01. Adding a variable for the selected project 
 
     First, add a variable **project** in the **EditProjectViewController.h**
     ```
@@ -938,7 +941,11 @@ in order to have access to the o365-lists-sdk.
     #import "office365-lists-sdk/ListItem.h"
     ```
 
+02. On the **ProjectDetailsViewController.m**, uncomment this line in the **prepareForSegue:sender:** method
 
+    ```
+    //controller.project = self.project;
+    ```
 
 03. Back to **EditProjectViewController.m**. Add the body for **updateProject**
 
@@ -1015,25 +1022,444 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
+05. Set the **viewDidLoad** initialization
 
-###Task5 - Wiring up ReferencesTableView
+    ```
+    -(void)viewDidLoad{
+    self.projectName.text = self.project.getTitle;
+    self.navigationItem.title = self.project.getTitle;
+    self.navigationItem.rightBarButtonItem.title = @"Done";
+    self.selectedReference = false;
+    self.projectNameField.hidden = true;
+    
+    
+    [self loadData];
+    }
+    ```
 
-01.
+06. Build and Run the app, and check everything is ok. Now you can edit a project
 
-###Task6 - Wiring up CreateReferenceView
 
-01.
+###Task5 - Wiring up CreateReferenceView
+
+01. On the **CreateReferenceViewController.m** add the body for the **createReference** method
+
+    ```
+    -(void)createReference{
+    if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.view addSubview:spinner];
+        spinner.hidesWhenStopped = YES;
+        
+        [spinner startAnimating];
+        
+        ProjectClient* client = [self getClient];
+        
+        NSString* obj = [NSString stringWithFormat:@"{'Url':'%@', 'Description':'%@'}", self.referenceUrlTxt.text, self.referenceTitle.text];
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, self.referenceDescription.text, [NSString stringWithFormat:@"%@", self.project.Id]] forKeys:@[@"URL", @"Comments", @"Project"]];
+        
+        ListItem* newReference = [[ListItem alloc] initWithDictionary:dic];
+        
+        NSURLSessionTask* task = [client addReference:newReference callback:^(BOOL success, NSError *error) {
+            if(error == nil && success){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    NSString *errorMessage = (error) ? [@"Add Reference failed. Reason: " stringByAppendingString: error.description] : @"Invalid Url";
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
+        }];
+        [task resume];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Complete all fields" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        });
+    }
+}
+    ```
+
+    And add the import sentence
+    ```
+    #import "ProjectClient.h"
+    ```
+
+02. On **ProjectDetailsViewController.m** uncomment this line in the method **prepareForSegue:sender:**
+
+    ```
+    //controller.project = self.project;
+    ```
+
+03. Back in **CreateReferenceViewController.h**, add the variable
+
+    ```
+    @property ListItem* project;
+    ```
+
+    And add the import
+    ```
+    #import "office365-lists-sdk/ListItem.h"
+    ```
+
+04. Build and Run the app, and check everything is ok. Now you can add a reference to a project
 
 ###Task7 - Wiring up ReferenceDetailsView
 
-01.
+01. On **ReferenceDetailsViewController.m** add the initialization method
+
+    ```
+    - (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.view.backgroundColor = nil;
+    
+    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    
+    if(![[self.selectedReference getData:@"Comments"] isEqual:[NSNull null]]){
+        self.descriptionLbl.text = [self.selectedReference getData:@"Comments"];
+    }else{
+        self.descriptionLbl.text = @"";
+    }
+    self.urlTableCell.scrollEnabled = NO;
+    self.navigationItem.title = [dic valueForKey:@"Description"];
+}
+    ```
+
+02. Add the table actions
+
+    ```
+    - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString* identifier = @"referenceDetailsTableCell";
+    ReferenceDetailTableCellTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
+    
+    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    
+    cell.urlContentLBL.text = [dic valueForKey:@"Url"];
+    
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    NSURL *url = [NSURL URLWithString:[dic valueForKey:@"Url"]];
+    
+    if (![[UIApplication sharedApplication] openURL:url]) {
+        NSLog(@"%@%@",@"Failed to open url:",[url description]);
+    }
+}
+    ```
+
+03. Forward navigation
+
+    ```
+    - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"editReference"]){
+        EditReferenceViewController *controller = (EditReferenceViewController *)segue.destinationViewController;
+        controller.token = self.token;
+        //controller.selectedReference = self.selectedReference;
+    }
+}
+    ```
+
+04. On **ReferenceDetailsViewController.h**, add the variable:
+
+    ```
+    @property ListItem* selectedReference;
+    ```
+
+    And the import sentence
+    ```
+    #import "office365-lists-sdk/ListItem.h"
+    ```
+
+05. On the **ProjectDetailsViewController.m** uncomment this line on the method **prepareForSegue:sender:**
+
+    ```
+    //controller.selectedReference = self.selectedReference;
+    ``
+
+06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
+
 
 ###Task8 - Wiring up EditReferenceView
 
-01.
+01. On **ReferenceDetailsViewController.m** uncomment this line on the method **prepareForSegue:sender**
+
+    ```
+    controller.selectedReference = self.selectedReference;
+    ```
+
+02. On **EditReferenceViewController.h** add a variable:
+
+    ```
+    @property ListItem* selectedReference;
+    ```
+
+    And the import sentence
+    ```
+    #import "office365-lists-sdk/ListItem.h"
+    ```
+
+03. On the **EditReferenceViewController.m**, change the **viewDidLoad** method
+
+    ```
+    - (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = nil;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.title = @"Edit Reference";
+    
+    self.navigationController.view.backgroundColor = nil;
+    
+    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    
+    self.referenceUrlTxt.text = [dic valueForKey:@"Url"];
+    
+    if(![[self.selectedReference getData:@"Comments"] isEqual:[NSNull null]]){
+        self.referenceDescription.text = [self.selectedReference getData:@"Comments"];
+    }else{
+        self.referenceDescription.text = @"";
+    }
+
+    self.referenceTitle.text = [dic valueForKey:@"Description"];
+}
+    ```
+
+04. Change the **updateReference** method
+
+    ```
+    -(void)updateReference{
+    if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+        [self.view addSubview:spinner];
+        spinner.hidesWhenStopped = YES;
+        
+        [spinner startAnimating];
+        
+        
+        ListItem* editedReference = [[ListItem alloc] init];
+        
+        NSDictionary* urlDic = [NSDictionary dictionaryWithObjects:@[self.referenceUrlTxt.text, self.referenceTitle.text] forKeys:@[@"Url",@"Description"]];
+        
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[urlDic, self.referenceDescription.text, [self.selectedReference getData:@"Project"], self.selectedReference.Id] forKeys:@[@"URL",@"Comments",@"Project",@"Id"]];
+        
+        [editedReference initWithDictionary:dic];
+        
+
+        ProjectClient* client = [ProjectClient getClient:self.token];
+        
+        NSURLSessionTask* task = [client updateReference:editedReference callback:^(BOOL result, NSError *error) {
+            if(error == nil && result){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    ProjectDetailsViewController *View = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-3];
+                    [self.navigationController popToViewController:View animated:YES];
+                });
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [spinner stopAnimating];
+                    NSString *errorMessage = (error) ? [@"Update Reference failed. Reason: " stringByAppendingString: error.description] : @"Invalid Url";
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                    [alert show];
+                });
+            }
+        }];
+        [task resume];
+    }else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Complete all fields" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+        });
+    }
+}
+    ```
+
+05. Change the **deleteReference**
+
+    ```
+    -(void)deleteReference{
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    
+    [spinner startAnimating];
+    
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    NSURLSessionTask* task = [client deleteListItem:@"Research References" itemId:self.selectedReference.Id callback:^(BOOL result, NSError *error) {
+        if(error == nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [spinner stopAnimating];
+                ProjectDetailsViewController *View = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-3];
+                [self.navigationController popToViewController:View animated:YES];
+            });
+        }else{
+            NSString *errorMessage = [@"Delete Reference failed. Reason: " stringByAppendingString: error.description];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorMessage delegate:self cancelButtonTitle:@"Retry" otherButtonTitles:@"Cancel", nil];
+            [alert show];
+        }
+    }];
+    
+    [task resume];
+}
+    ```
+
+06. Build and Run the app, and check everything is ok. Now you can edit and delete a reference.
 
 
+###Task9 - Wiring up Add Reference Safari Extension
 
+    ```
+    The app provides a Safari action extension, that allows the user to share a url and add it to a project using a simple screen, without entering the main app.
+    ```
+
+01. Add the **loadData** method body on **ActionViewController.m**
+
+    ```
+    -(void)loadData{
+    //Create and add a spinner
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    [spinner startAnimating];
+    
+    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    
+    NSURLSessionTask* task = [client getList:@"Research Projects" callback:^(ListEntity *list, NSError *error) {
+        
+        //If list doesn't exists, create one with name Research Projects
+        if(list){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getProjectsFromList:spinner];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createProjectList:spinner];
+            });
+        }
+        
+    }];
+    [task resume];
+}
+    ```
+
+    And add the import sentence
+    ```
+    #import "ProjectClientEx.h"
+    ```
+
+
+02. Load Projects from the list
+
+    ```
+    -(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
+    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    
+    NSURLSessionTask* listProjectsTask = [client getListItems:@"Research Projects" callback:^(NSMutableArray *listItems, NSError *error) {
+        if(!error){
+            self.projectsList = listItems;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.projectTable reloadData];
+                [spinner stopAnimating];
+            });
+        }
+    }];
+    [listProjectsTask resume];
+}
+    ```
+
+03. Create the List if not exists
+
+    ```
+    -(void)createProjectList:(UIActivityIndicatorView *) spinner{
+    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    
+    ListEntity* newList = [[ListEntity alloc ] init];
+    [newList setTitle:@"Research Projects"];
+    
+    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
+        [spinner stopAnimating];
+    }];
+    [createProjectListTask resume];
+}
+    ```
+
+04. Finally add the table actions and events, including the selection and the references sharing
+
+    ```
+    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString* identifier = @"ProjectListCell";
+    ProjectTableExtensionViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
+    
+    ListItem *item = [self.projectsList objectAtIndex:indexPath.row];
+    cell.ProjectName.text = [item getTitle];
+    
+    return cell;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.projectsList count];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 40;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    
+    [spinner startAnimating];
+    
+    currentEntity= [self.projectsList objectAtIndex:indexPath.row];
+    
+    NSString* obj = [NSString stringWithFormat:@"{'Url':'%@', 'Description':'%@'}", self.urlTxt.text, @""];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, @"", [NSString stringWithFormat:@"%@", currentEntity.Id]] forKeys:@[@"URL", @"Comments", @"Project"]];
+    
+    ListItem* newReference = [[ListItem alloc] initWithDictionary:dic];
+    
+    __weak ActionViewController *sself = self;
+    
+    NSURLSessionTask* task =[[ProjectClientEx getClient:self.token] addReference:newReference callback:^(BOOL success, NSError *error) {
+        if(error == nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                sself.projectTable.hidden = true;
+                sself.selectProjectLbl.hidden = true;
+                sself.successMsg.hidden = false;
+                sself.successMsg.text = [NSString stringWithFormat:@"Reference added successfully to the %@ Project.", [currentEntity getTitle]];
+                [spinner stopAnimating];
+            });
+        }
+    }];
+    
+    [task resume];
+}
+    ```
 
 
 
@@ -1042,9 +1468,9 @@ in order to have access to the o365-lists-sdk.
 
 By completing this hands-on lab you have learnt:
 
-01. Some of the basics of iOS development.
+01. The way to connect an iOS application with an Office365 tenant.
 
-02. How to add the ADALiOS library and bundles to the application 
+02. How to retrieve information from Sharepoint lists.
 
-03. How to call login and clear operations to handle the token from an AzureAD account for further requests
+03. How to handle the responses in JSON format. And communicate with the infrastructure.
 
