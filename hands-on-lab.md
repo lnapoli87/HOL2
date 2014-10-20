@@ -168,6 +168,7 @@ you have another **client** folder.
 
 02. Add the body of each method in the **ProjectClient.h** file.
 
+    Add Project
     ```
 - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback:(void (^)(BOOL, NSError *))callback
 {
@@ -198,6 +199,7 @@ you have another **client** folder.
 }
     ```
 
+    Update Project
     ```
 - (NSURLSessionDataTask *)updateProject:(ListItem *)project callback:(void (^)(BOOL, NSError *))callback
 {
@@ -237,6 +239,7 @@ you have another **client** folder.
 }
     ```
 
+    Update Reference
     ```
 - (NSURLSessionDataTask *)updateReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
 {
@@ -280,6 +283,7 @@ you have another **client** folder.
 }
     ```
 
+    Add Reference
     ```
 - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
 {
@@ -310,6 +314,7 @@ you have another **client** folder.
 }
     ```
 
+    Get References by Project
     ```
 - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback{
     NSString *queryString = [NSString stringWithFormat:@"Project eq '%@'", projectId];
@@ -335,6 +340,7 @@ you have another **client** folder.
 }
     ```
 
+    Delete an Item
     ```
 - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback{
     
@@ -364,6 +370,52 @@ you have another **client** folder.
     }];
 }
     ```
+
+03. Add the **JSON** handling methods:
+
+    Parsing Results
+    ```
+    - (NSMutableArray *)parseDataArray:(NSData *)data{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    NSError *error ;
+    
+    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[self sanitizeJson:data]
+                                                               options: NSJSONReadingMutableContainers
+                                                                 error:&error];
+    
+    NSArray *jsonArray = [[jsonResult valueForKey : @"d"] valueForKey : @"results"];
+    
+    if(jsonArray != nil){
+        for (NSDictionary *value in jsonArray) {
+            [array addObject: value];
+        }
+    }else{
+        NSDictionary *jsonItem =[jsonResult valueForKey : @"d"];
+        
+        if(jsonItem != nil){
+            [array addObject:jsonItem];
+        }
+    }
+    
+    return array;
+}
+    ```
+
+    Sanitizing JSON
+    ```
+ - (NSData*) sanitizeJson : (NSData*) data{
+    NSString * dataString = [[NSString alloc ] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString* replacedDataString = [dataString stringByReplacingOccurrencesOfString:@"E+308" withString:@"E+127"];
+    
+    NSData* bytes = [replacedDataString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return bytes;
+}
+    ```
+
 
 
 
