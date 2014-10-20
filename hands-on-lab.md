@@ -564,7 +564,9 @@ const NSString *apiUrl = @"/_api/lists";
 In this exercise you will navigate in every controller class of the project, in order to connect each action (from buttons, lists and events) with one ProjectClient operation.
 
 ```
-The Application has every event wired up with their respective controller classes. We need to connect this event methods to our ProjectClient/ProjectClientEx class in order to have access to the o365-lists-sdk
+The Application has every event wired up with their respective controller classes. 
+We need to connect this event methods to our ProjectClient/ProjectClientEx class 
+in order to have access to the o365-lists-sdk.
 ```
 
 ###Task1 - Wiring up ProjectTableView
@@ -574,7 +576,8 @@ The Application has every event wired up with their respective controller classe
     ![](img/fig.16.png)
 
     ```
-    This empty method reads how we use the spinner and then call the data function, delegating the spinner stop in this method.
+    This empty method reads how we use the spinner and then call the data function, 
+    delegating the spinner stop in this method.
     ```
 
 02. Add the **loadData** method body:
@@ -645,7 +648,6 @@ Create Project List
     ```
 04. Now fill the table with the projects information
 
-    Populate table cells
     ```
     - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -659,7 +661,8 @@ Create Project List
 }
     ```
 
-    Get projects count
+ 05.Get projects count
+    
     ```
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -667,7 +670,8 @@ Create Project List
 }
     ```
 
-    Row selection
+ 06.Row selection
+    
     ```
     - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -676,7 +680,8 @@ Create Project List
     [self performSegueWithIdentifier:@"detail" sender:self];
 }
     ```
-05. Finally set the selectedProject when the user tap a project in the list:
+
+07. Set the selectedProject when the user tap a project in the list:
 
     ```
     - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -692,6 +697,14 @@ Create Project List
     
 }
     ```
+
+08. Add the instance variable for the selected project:
+
+    ```
+    ListItem* currentEntity;
+    ```
+
+09. Build and Run the app, and check everything is ok.
 
 ###Task2 - Wiring up CreateProjectView
 
