@@ -440,6 +440,7 @@ you have another **client** folder.
     #import "office365-base-sdk/HttpConnection.h"
     #import "office365-base-sdk/Constants.h"
     #import "office365-base-sdk/NSString+NSStringExtensions.h"
+    #import "office365-base-sdk/OAuthentication.h"
     ```
 
 06. Build the project and check everything is ok.
@@ -553,6 +554,7 @@ const NSString *apiUrl = @"/_api/lists";
 #import "office365-base-sdk/HttpConnection.h"
 #import "office365-base-sdk/Constants.h"
 #import "office365-base-sdk/NSString+NSStringExtensions.h"
+#import "office365-base-sdk/OAuthentication.h"
     ```
 
 12. Build and Run the application and check everything is ok.
@@ -641,7 +643,55 @@ Create Project List
     [createProjectListTask resume];
 }
     ```
+04. Now fill the table with the projects information
 
+    Populate table cells
+    ```
+    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString* identifier = @"ProjectListCell";
+    ProjectTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
+    
+    ListItem *item = [self.projectsList objectAtIndex:indexPath.row];
+    cell.ProjectName.text = [item getTitle];
+    
+    return cell;
+}
+    ```
+
+    Get projects count
+    ```
+    - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.projectsList count];
+}
+    ```
+
+    Row selection
+    ```
+    - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    currentEntity= [self.projectsList objectAtIndex:indexPath.row];
+    
+    [self performSegueWithIdentifier:@"detail" sender:self];
+}
+    ```
+05. Finally set the selectedProject when the user tap a project in the list:
+
+    ```
+    - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"newProject"]){
+        CreateViewController *controller = (CreateViewController *)segue.destinationViewController;
+        controller.token = self.token;
+    }else{
+        ProjectDetailsViewController *controller = (ProjectDetailsViewController *)segue.destinationViewController;
+        controller.project = currentEntity;
+        controller.token = self.token;
+    }
+    
+}
+    ```
 
 ###Task2 - Wiring up CreateProjectView
 
