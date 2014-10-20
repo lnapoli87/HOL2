@@ -662,7 +662,7 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
- 05. Get projects count
+05. Get projects count
     
     ```
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -671,7 +671,7 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
- 06. Row selection
+06. Row selection
     
     ```
     - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1191,7 +1191,7 @@ in order to have access to the o365-lists-sdk.
 
     ```
     //controller.selectedReference = self.selectedReference;
-    ```
+    ``
 
 06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
 
