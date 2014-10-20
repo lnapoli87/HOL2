@@ -165,6 +165,11 @@ you have another **client** folder.
     ```
 
     Each method is responsible of retrieve data from the O365 tenant and parse it, or manage add, edit, delete actions.
+    Also add the import sentence:
+
+    ```
+    #import <office365-lists-sdk/ListItem.h>
+    ```
 
 02. Add the body of each method in the **ProjectClient.h** file.
 
@@ -416,10 +421,15 @@ you have another **client** folder.
 }
     ```
 
+04. Add the following import sentences:
 
+    ```
+    #import "office365-base-sdk/HttpConnection.h"
+    #import "office365-base-sdk/Constants.h"
+    #import "office365-base-sdk/NSString+NSStringExtensions.h"
+    ```
 
-
-03. Build the project and check everything is ok.
+05. Build the project and check everything is ok.
 
 
 
