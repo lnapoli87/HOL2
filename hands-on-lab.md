@@ -1191,7 +1191,7 @@ in order to have access to the o365-lists-sdk.
 
     ```
     //controller.selectedReference = self.selectedReference;
-    ``
+    ```
 
 06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
 
