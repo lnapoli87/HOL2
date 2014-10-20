@@ -99,7 +99,7 @@ and create a client class with empty methods in it to handle the requests to the
 
     ![](img/fig.15.png)
 
-08. Build and Run the application to check is everithing is ok.
+08. Build and Run the application to check everything is ok.
 
     ![](img/fig.07.png)
 
@@ -119,11 +119,11 @@ you have another **client** folder.
 
     ![](img/fig.10.png)
 
-03. In this section, configure the new class giving it a name (**ProjectClient**), and make it a subclass of **ListClient**. Make sure that the language dropdown is set with **Objective-C** because our o365-lists library is written in this programming language. Finally click **Next**, this will create a **.h** and **.m** files for our new class.
+03. In this section, configure the new class giving it a name (**ProjectClient**), and make it a subclass of **ListClient**. Make sure that the language dropdown is set with **Objective-C** because our o365-lists library is written in that programming language. Finally click on **Next**.
 
     ![](img/fig.11.png)    
 
-04. Now we are going to select where the new class sources files (.h and .m) will be stored. In this case we can click on **Create** directly.
+04. Now we are going to select where the new class sources files (.h and .m) will be stored. In this case we can click on **Create** directly. This will create a **.h** and **.m** files for our new class.
 
     ![](img/fig.12.png)
 
@@ -133,7 +133,7 @@ you have another **client** folder.
 
 06. Now you will have a file structure like this:
 
-    [](img/fig.14.png)
+    ![](img/fig.14.png)
 
 07. Build the Project and you will see 2 errors. To fix them change the import sentences On **ProjectClient.h** and **ProjectClientEx.m**.
 
