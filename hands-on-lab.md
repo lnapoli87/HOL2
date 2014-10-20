@@ -162,6 +162,7 @@ you have another **client** folder.
     - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
     - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
     - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback;
+    +(ProjectClient*)getClient: (NSString *) token;
     ```
 
     Each method is responsible of retrieve data from the O365 tenant and parse it, or manage add, edit, delete actions.
@@ -421,7 +422,19 @@ you have another **client** folder.
 }
     ```
 
-04. Add the following import sentences:
+04. Add the **getClient** class method
+
+    ```
+    +(ProjectClient*)getClient: (NSString *) token{
+    OAuthentication* authentication = [OAuthentication alloc];
+    [authentication setToken:token];
+    
+    return [[ProjectClient alloc] initWithUrl:@"https://foxintergen.sharepoint.com/ContosoResearchTracker"
+                                  credentials: authentication];
+    }
+    ```
+
+05. Add the following import sentences:
 
     ```
     #import "office365-base-sdk/HttpConnection.h"
@@ -429,12 +442,13 @@ you have another **client** folder.
     #import "office365-base-sdk/NSString+NSStringExtensions.h"
     ```
 
-05. Build the project and check everything is ok.
+06. Build the project and check everything is ok.
 
 07. In **ProjectClientEx.h** header file, add the following declaration between **@interface** and **@end**
 
     ```
     - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
+    +(ProjectClientEx*)getClient: (NSString *) token;
     ```
     And the import sentence:
     ```
@@ -521,7 +535,19 @@ const NSString *apiUrl = @"/_api/lists";
 }
     ```
 
-10. Add the following import sentences on **ProjectClientEx.m**
+10. Add the **getClient** class method:
+
+    ```
++(ProjectClientEx*)getClient: (NSString *) token{
+    OAuthentication* authentication = [OAuthentication alloc];
+    [authentication setToken:token];
+    
+    return [[ProjectClientEx alloc] initWithUrl:@"https://foxintergen.sharepoint.com/ContosoResearchTracker"
+                                  credentials: authentication];
+}
+    ```
+
+11. Add the following import sentences on **ProjectClientEx.m**
 
     ```
 #import "office365-base-sdk/HttpConnection.h"
@@ -529,15 +555,93 @@ const NSString *apiUrl = @"/_api/lists";
 #import "office365-base-sdk/NSString+NSStringExtensions.h"
     ```
 
-11. Build and Run the application and check everything is ok.
+12. Build and Run the application and check everything is ok.
 
 <a name="exercise3"></a>
 ##Exercise 3: Connect actions in the view to ProjectClient class
 In this exercise you will navigate in every controller class of the project, in order to connect each action (from buttons, lists and events) with one ProjectClient operation.
 
+```
+The Application has every event wired up with their respective controller classes. We need to connect this event methods to our ProjectClient/ProjectClientEx class in order to have access to the o365-lists-sdk
+```
+
 ###Task1 - Wiring up ProjectTableView
 
-01.
+01. Take a look to the **ProjectTableViewController.m** class implementation. More especifically, the **loadData** method.
+
+    ![](img/fig.16.png)
+
+    ```
+    This empty method reads how we use the spinner and then call the data function, delegating the spinner stop in this method.
+    ```
+
+02. Add the **loadData** method body:
+
+    ```
+    -(void)loadData{
+    //Create and add a spinner
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.view addSubview:spinner];
+    spinner.hidesWhenStopped = YES;
+    [spinner startAnimating];
+    
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+   NSURLSessionTask* task = [client getList:@"Research Projects" callback:^(ListEntity *list, NSError *error) {
+        
+    //If list doesn't exists, create one with name Research Projects
+   if(list){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getProjectsFromList:spinner];
+            });
+        }else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createProjectList:spinner];
+            });
+        }
+        
+    }];
+    [task resume];
+}
+    ```
+
+03. Add the body for the **getProjectsFromList** and **createProjectList** methods
+
+    Get Projects
+    ```
+    -(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    NSURLSessionTask* listProjectsTask = [client getListItems:@"Research Projects" callback:^(NSMutableArray *listItems, NSError *error) {
+        if(!error){
+            self.projectsList = listItems;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [spinner stopAnimating];
+            });
+        }
+    }];
+    [listProjectsTask resume];
+}
+```
+
+Create Project List
+```
+-(void)createProjectList:(UIActivityIndicatorView *) spinner{
+    ProjectClient* client = [ProjectClient getClient:self.token];
+    
+    ListEntity* newList = [[ListEntity alloc ] init];
+    [newList setTitle:@"Research Projects"];
+    
+    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
+        [spinner stopAnimating];
+    }];
+    [createProjectListTask resume];
+}
+    ```
+
 
 ###Task2 - Wiring up CreateProjectView
 
