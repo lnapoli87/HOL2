@@ -39,10 +39,10 @@ NSString* token;
     clientId = [NSString alloc];
     redirectUriString = [NSString alloc];
     
-    authority = @"https://login.windows.net/common";
-    resourceId = @"https://foxintergen.sharepoint.com";
-    clientId = @"13b04d26-95fc-4fb4-a67e-c850e07822a8";
-    redirectUriString = @"http://android/complete";
+    authority = @"";
+    resourceId = @"";
+    clientId = @"";
+    redirectUriString = @"";
     
     token = [NSString alloc];
 }
