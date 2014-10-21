@@ -93,7 +93,7 @@ and create a client class with empty methods in it to handle the requests to the
 
     ![](img/fig.06.png) 
 
-08. Follow 05-07 steps again, this time for the **Extension target**.
+08. Follow steps 05 to 07 again, this time for the **Extension target**.
 
     ![](img/fig.15.png)
 
@@ -113,7 +113,7 @@ you have another **client** folder.
 
     ![](img/fig.09.png)
 
-02. On the firt one, make a right click in the client folder and select **New File**. You will see the **New File wizard**. Click on the **iOS** section, select **Cocoa Touch Class** and click **Next**.
+02. On the first one, make a right click in the client folder and select **New File**. You will see the **New File wizard**. Click on the **iOS** section, select **Cocoa Touch Class** and click **Next**.
 
     ![](img/fig.10.png)
 
@@ -581,7 +581,7 @@ in order to have access to the o365-lists-sdk.
 
 ###Task1 - Wiring up ProjectTableView
 
-01. Take a look to the **ProjectTableViewController.m** class implementation. More especifically, the **loadData** method.
+01. Take a look to the **ProjectTableViewController.m** class implementation. More specifically, the **loadData** method.
 
     ![](img/fig.16.png)
 
@@ -590,7 +590,7 @@ in order to have access to the o365-lists-sdk.
     delegating in this method the data gathering and spinner stop.
 
     All the calls to the O365 client begins creating a NSURLSessionTask that will
-    be executed asyncronously and then call to a callback block that will change the view
+    be executed asynchronously and then call to a callback block that will change the view
     and to show the data or an error message, also in an async way, putting all the changes
     in the Execution Main Queue, using:
     ```
