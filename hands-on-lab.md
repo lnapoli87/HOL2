@@ -1096,7 +1096,7 @@ in order to have access to the o365-lists-sdk.
         
         [spinner startAnimating];
         
-        ProjectClient* client = [self getClient];
+        ProjectClient* client = [ProjectClient getClient:self.token];
         
         NSString* obj = [NSString stringWithFormat:@"{'Url':'%@', 'Description':'%@'}", self.referenceUrlTxt.text, self.referenceTitle.text];
         NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, self.referenceDescription.text, [NSString stringWithFormat:@"%@", self.project.Id]] forKeys:@[@"URL", @"Comments", @"Project"]];
