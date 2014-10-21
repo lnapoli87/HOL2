@@ -1200,7 +1200,7 @@ in order to have access to the o365-lists-sdk.
     ```
     //controller.selectedReference = self.selectedReference;
     ```
-    
+
 06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
 
     ![](img/fig.22.png)
@@ -1474,13 +1474,26 @@ a project using a simple screen, without entering the main app.
 }
     ```
 
-05. Build and Run the application, check everything is ok. Now you can share a reference url from safari and attach it to a Project with our application.
+05. To Run the app, you should select the correct target. To do so, follow the steps:
 
-Custom Action Extension
+    On the **Run/Debug panel control**, you will see the target selected
+    ![](img/fig.26.png)
+
+    Click on the target name and select the **Extension Target** and an iOS simulator
+    ![](img/fig.27.png)
+
+    Now you can Build and Run the application, but first we have to select what native application will open in order to access the extension.
+    In this case, we select **Safari**
+    ![](img/fig.28.png)
+
+
+06. Build and Run the application, check everything is ok. Now you can share a reference url from safari and attach it to a Project with our application.
+
+    Custom Action Extension
     ![](img/fig.24.png)
 
-Simple view to add a Reference to a Project
-    ![](img/fig.24.png)
+    Simple view to add a Reference to a Project
+    ![](img/fig.25.png)
 
 
 
