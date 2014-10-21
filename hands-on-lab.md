@@ -1345,7 +1345,7 @@ in order to have access to the o365-lists-sdk.
 ```    
 The app provides a Safari action extension, that allows the user to share a url and add it to
 a project using a simple screen, without entering the main app.
-``
+```
 
 01. Add the **loadData** method body on **ActionViewController.m**
 
