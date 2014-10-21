@@ -175,7 +175,7 @@ you have another **client** folder.
     Add Project
     ```
     const NSString *apiUrl = @"/_api/lists";
-    
+
 - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback:(void (^)(BOOL, NSError *))callback
 {
     NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research Projects" urlencode]];
@@ -1484,7 +1484,7 @@ a project using a simple screen, without entering the main app.
     Click on the target name and select the **Extension Target** and an iOS simulator
     ![](img/fig.27.png)
 
-    Now you can Build and Run the application, but first we have to select what native application 
+    Now you can Build and Run the application, but first we have to select what native application
     will open in order to access the extension. In this case, we select **Safari**
     ![](img/fig.28.png)
 
