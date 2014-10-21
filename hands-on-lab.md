@@ -721,7 +721,13 @@ in order to have access to the o365-lists-sdk.
     ListItem* currentEntity;
     ```
 
-09. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
+09. Add the import sentence for the ProjectClient class
+
+    ```
+    #import "ProjectClient.h"
+    ```
+
+10. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
 
     ![](img/fig.17.png)
 
