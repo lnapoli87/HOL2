@@ -1482,8 +1482,8 @@ a project using a simple screen, without entering the main app.
     Click on the target name and select the **Extension Target** and an iOS simulator
     ![](img/fig.27.png)
 
-    Now you can Build and Run the application, but first we have to select what native application will open in order to access the extension.
-    In this case, we select **Safari**
+    Now you can Build and Run the application, but first we have to select what native application 
+    will open in order to access the extension. In this case, we select **Safari**
     ![](img/fig.28.png)
 
 
@@ -1494,8 +1494,6 @@ a project using a simple screen, without entering the main app.
 
     Simple view to add a Reference to a Project
     ![](img/fig.25.png)
-
-
 
 ##Summary
 
