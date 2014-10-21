@@ -435,7 +435,8 @@ you have another **client** folder.
     ```
 
     ```
-    Make sure to change https://xxx.xxx/xxx with the Resource url in the initWithUrl:credentials: method.
+    Make sure to change https://xxx.xxx/xxx with the Resource url in the 
+    initWithUrl:credentials: method.
     ```
 
 05. Add the following import sentences:
