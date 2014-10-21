@@ -170,10 +170,12 @@ you have another **client** folder.
     #import <office365-lists-sdk/ListItem.h>
     ```
 
-02. Add the body of each method in the **ProjectClient.h** file.
+02. Add the body of each method in the **ProjectClient.m** file.
 
     Add Project
     ```
+    const NSString *apiUrl = @"/_api/lists";
+    
 - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback:(void (^)(BOOL, NSError *))callback
 {
     NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research Projects" urlencode]];
@@ -774,7 +776,7 @@ in order to have access to the o365-lists-sdk.
     ```
     #import "office365-lists-sdk/ListItem.h"
     ```
-    
+
 02. Set the value when the user selects a project in the list. On **ProjectTableViewController.m**
 
     Uncomment this line in the **prepareForSegue:sender:** method
