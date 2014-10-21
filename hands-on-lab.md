@@ -1400,7 +1400,7 @@ a project using a simple screen, without entering the main app.
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
     
-    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    ProjectClientEx* client = [ProjectClientEx getClient:token];
     
     NSURLSessionTask* task = [client getList:@"Research Projects" callback:^(ListEntity *list, NSError *error) {
         
@@ -1430,7 +1430,7 @@ a project using a simple screen, without entering the main app.
 
     ```
     -(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
-    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    ProjectClientEx* client = [ProjectClientEx getClient:token];
     
     NSURLSessionTask* listProjectsTask = [client getListItems:@"Research Projects" callback:^(NSMutableArray *listItems, NSError *error) {
         if(!error){
@@ -1450,7 +1450,7 @@ a project using a simple screen, without entering the main app.
 
     ```
     -(void)createProjectList:(UIActivityIndicatorView *) spinner{
-    ProjectClientEx* client = [ProjectClientEx getClient:self.token];
+    ProjectClientEx* client = [ProjectClientEx getClient:token];
     
     ListEntity* newList = [[ListEntity alloc ] init];
     [newList setTitle:@"Research Projects"];
@@ -1500,7 +1500,7 @@ a project using a simple screen, without entering the main app.
     
     __weak ActionViewController *sself = self;
     
-    NSURLSessionTask* task =[[ProjectClientEx getClient:self.token] addReference:newReference callback:^(BOOL success, NSError *error) {
+    NSURLSessionTask* task =[[ProjectClientEx getClient:token] addReference:newReference callback:^(BOOL success, NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 sself.projectTable.hidden = true;
