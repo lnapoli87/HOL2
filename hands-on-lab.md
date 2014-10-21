@@ -1420,10 +1420,15 @@ a project using a simple screen, without entering the main app.
 }
     ```
 
-    And add the import sentence
+    Add the import sentence
     ```
     #import "ProjectClientEx.h"
     ```
+
+    And an instance variable between **@implementation** and **@end**
+    ```
+    ListEntity* currentEntity 
+    ```    
 
 
 02. Load Projects from the list
