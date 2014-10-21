@@ -815,8 +815,8 @@ in order to have access to the o365-lists-sdk.
 
     ```
     -(void)viewDidLoad{
-    self.ProjectNameTxt.text = self.project.getTitle;
-    self.navigationController.title = @"Edit Project";
+    self.projectName.text = self.project.getTitle;
+    self.navigationItem.title = self.project.getTitle;
     self.navigationItem.rightBarButtonItem.title = @"Done";
     self.selectedReference = false;
     self.projectNameField.hidden = true;
@@ -1065,8 +1065,8 @@ in order to have access to the o365-lists-sdk.
 
     ```
     -(void)viewDidLoad{
-    self.projectName.text = self.project.getTitle;
-    self.navigationItem.title = self.project.getTitle;
+    self.ProjectNameTxt.text = self.project.getTitle;
+    self.navigationItem.title = @"Edit Project";
     self.navigationItem.rightBarButtonItem.title = @"Done";
     self.selectedReference = false;
     self.projectNameField.hidden = true;
