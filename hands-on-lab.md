@@ -553,6 +553,11 @@ const NSString *apiUrl = @"/_api/lists";
 }
     ```
 
+    ```
+    Make sure to change https://xxx.xxx/xxx with the Resource url in the 
+    initWithUrl:credentials: method.
+    ```
+
 11. Add the following import sentences on **ProjectClientEx.m**
 
     ```
@@ -774,7 +779,7 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-02. Add the import sentence to the **ProjectClient**
+02. Add the import sentence to the **ProjectClient** class
 
     ```
     #import "ProjectClient.h"
@@ -951,7 +956,13 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-09. Build and Run the app, and check everything is ok. Now you can see the references from a project
+09. Add the import sentence to the **ProjectClient** class
+
+    ```
+    #import "ProjectClient.h"
+    ```
+
+10. Build and Run the app, and check everything is ok. Now you can see the references from a project
 
     ![](img/fig.19.png)
 
@@ -1065,7 +1076,13 @@ in order to have access to the o365-lists-sdk.
     }
     ```
 
-06. Build and Run the app, and check everything is ok. Now you can edit a project
+06. Add the import sentence to the **ProjectClient** class
+
+    ```
+    #import "ProjectClient.h"
+    ```
+
+07. Build and Run the app, and check everything is ok. Now you can edit a project
 
     ![](img/fig.20.png)
 
@@ -1359,7 +1376,13 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-06. Build and Run the app, and check everything is ok. Now you can edit and delete a reference.
+06. Add the import sentence to the **ProjectClient** class
+
+    ```
+    #import "ProjectClient.h"
+    ```
+
+07. Build and Run the app, and check everything is ok. Now you can edit and delete a reference.
 
     ![](img/fig.23.png)
 
