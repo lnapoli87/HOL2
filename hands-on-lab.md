@@ -62,8 +62,6 @@ and create a client class with empty methods in it to handle the requests to the
     Also we have permissions to add, edit and delete items from a list.
     We will use a files-sdk in order to access the environment using two classes called 
     "ListEntity" and "ListItem" that have all necesary data to manage the content.
-
-    --We continue with the O365-lists-sdk library import to the project--
     ```
 
     ![](img/fig.08.png)
@@ -429,7 +427,7 @@ you have another **client** folder.
     OAuthentication* authentication = [OAuthentication alloc];
     [authentication setToken:token];
     
-    return [[ProjectClient alloc] initWithUrl:@"https://foxintergen.sharepoint.com/ContosoResearchTracker"
+    return [[ProjectClient alloc] initWithUrl:@"https://xxx.xxx/xxx"
                                   credentials: authentication];
     }
     ```
@@ -543,7 +541,7 @@ const NSString *apiUrl = @"/_api/lists";
     OAuthentication* authentication = [OAuthentication alloc];
     [authentication setToken:token];
     
-    return [[ProjectClientEx alloc] initWithUrl:@"https://foxintergen.sharepoint.com/ContosoResearchTracker"
+    return [[ProjectClientEx alloc] initWithUrl:@"https://xxx.xxx/xxx"
                                   credentials: authentication];
 }
     ```
@@ -707,6 +705,8 @@ in order to have access to the o365-lists-sdk.
 
 09. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
 
+    ![](img/fig.17.png)
+
 ###Task2 - Wiring up CreateProjectView
 
 01. Open **CreateViewController.m** and add the body to the **createProject** method
@@ -757,6 +757,8 @@ in order to have access to the o365-lists-sdk.
     ```
 
 03. Build and Run the app, and check everything is ok. Now you can create a new project with the plus button in the left corner of the main screen
+
+    ![](img/fig.18.png)
 
 
 ###Task3 - Wiring up ProjectDetailsView
@@ -927,6 +929,8 @@ in order to have access to the o365-lists-sdk.
 
 09. Build and Run the app, and check everything is ok. Now you can see the references from a project
 
+    ![](img/fig.19.png)
+
 ###Task4 - Wiring up EditProjectView
 
 01. Adding a variable for the selected project 
@@ -1039,6 +1043,8 @@ in order to have access to the o365-lists-sdk.
 
 06. Build and Run the app, and check everything is ok. Now you can edit a project
 
+    ![](img/fig.20.png)
+
 
 ###Task5 - Wiring up CreateReferenceView
 
@@ -1109,6 +1115,8 @@ in order to have access to the o365-lists-sdk.
     ```
 
 04. Build and Run the app, and check everything is ok. Now you can add a reference to a project
+
+    ![](img/fig.21.png)
 
 ###Task7 - Wiring up ReferenceDetailsView
 
@@ -1191,9 +1199,11 @@ in order to have access to the o365-lists-sdk.
 
     ```
     //controller.selectedReference = self.selectedReference;
-    ```
+    ``
 
 06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
+
+    ![](img/fig.22.png)
 
 
 ###Task8 - Wiring up EditReferenceView
@@ -1327,11 +1337,14 @@ in order to have access to the o365-lists-sdk.
 
 06. Build and Run the app, and check everything is ok. Now you can edit and delete a reference.
 
+    ![](img/fig.23.png)
+
 
 ###Task9 - Wiring up Add Reference Safari Extension
 
     ```
-    The app provides a Safari action extension, that allows the user to share a url and add it to a project using a simple screen, without entering the main app.
+    The app provides a Safari action extension, that allows the user to share a url and add it to
+    a project using a simple screen, without entering the main app.
     ```
 
 01. Add the **loadData** method body on **ActionViewController.m**
@@ -1461,6 +1474,13 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
+05. Build and Run the application, check everything is ok. Now you can share a reference url from safari and attach it to a Project with our application.
+
+    Custom Action Extension
+    ![](img/fig.24.png)
+
+    Simple view to add a Reference to a Project
+    ![](img/fig.24.png)
 
 
 
