@@ -579,10 +579,16 @@ in order to have access to the o365-lists-sdk.
     This empty method shows how we use the spinner and then call the data function, 
     delegating in this method the data gathering and spinner stop.
 
-    All the calls to the O365 client begins creating a **NSURLSessionTask** that will
+    All the calls to the O365 client begins creating a NSURLSessionTask that will
     be executed asyncronously and then call to a callback block that will change the view
     and to show the data or an error message, also in an async way, putting all the changes
-    in the **Execution Main Queue**.
+    in the Execution Main Queue, using:
+    ```
+    
+    ```
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //changes to the view
+    }
     ```
 
 02. Add the **loadData** method body:
