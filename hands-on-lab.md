@@ -1345,7 +1345,7 @@ in order to have access to the o365-lists-sdk.
 ```    
 The app provides a Safari action extension, that allows the user to share a url and add it to
 a project using a simple screen, without entering the main app.
-```
+``
 
 01. Add the **loadData** method body on **ActionViewController.m**
 
@@ -1477,10 +1477,10 @@ a project using a simple screen, without entering the main app.
 05. Build and Run the application, check everything is ok. Now you can share a reference url from safari and attach it to a Project with our application.
 
 Custom Action Extension
-![](img/fig.24.png)
+    ![](img/fig.24.png)
 
 Simple view to add a Reference to a Project
-![](img/fig.24.png)
+    ![](img/fig.24.png)
 
 
 
