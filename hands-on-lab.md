@@ -434,6 +434,10 @@ you have another **client** folder.
     }
     ```
 
+    ```
+    Make sure to change https://xxx.xxx/xxx with the Resource url in the initWithUrl:credentials: method.
+    ```
+
 05. Add the following import sentences:
 
     ```
@@ -584,7 +588,7 @@ in order to have access to the o365-lists-sdk.
     and to show the data or an error message, also in an async way, putting all the changes
     in the Execution Main Queue, using:
     ```
-    
+
     ```
     dispatch_async(dispatch_get_main_queue(), ^{
         //changes to the view
