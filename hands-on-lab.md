@@ -1068,11 +1068,6 @@ in order to have access to the o365-lists-sdk.
     self.ProjectNameTxt.text = self.project.getTitle;
     self.navigationItem.title = @"Edit Project";
     self.navigationItem.rightBarButtonItem.title = @"Done";
-    self.selectedReference = false;
-    self.projectNameField.hidden = true;
-    
-    
-    [self loadData];
     }
     ```
 
