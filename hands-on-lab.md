@@ -1199,14 +1199,14 @@ in order to have access to the o365-lists-sdk.
 
     ```
     //controller.selectedReference = self.selectedReference;
-    ```
+    ``
 
 06. Build and Run the app, and check everything is ok. Now you can see the Reference details.
 
     ![](img/fig.22.png)
 
 
-###Task8 - Wiring up EditReferenceView
+###Task7 - Wiring up EditReferenceView
 
 01. On **ReferenceDetailsViewController.m** uncomment this line on the method **prepareForSegue:sender**
 
@@ -1340,12 +1340,12 @@ in order to have access to the o365-lists-sdk.
     ![](img/fig.23.png)
 
 
-###Task9 - Wiring up Add Reference Safari Extension
+###Task8 - Wiring up Add Reference Safari Extension
 
-    ```
-    The app provides a Safari action extension, that allows the user to share a url and add it to
-    a project using a simple screen, without entering the main app.
-    ```
+```    
+The app provides a Safari action extension, that allows the user to share a url and add it to
+a project using a simple screen, without entering the main app.
+```
 
 01. Add the **loadData** method body on **ActionViewController.m**
 
@@ -1476,11 +1476,11 @@ in order to have access to the o365-lists-sdk.
 
 05. Build and Run the application, check everything is ok. Now you can share a reference url from safari and attach it to a Project with our application.
 
-    Custom Action Extension
-    ![](img/fig.24.png)
+Custom Action Extension
+![](img/fig.24.png)
 
-    Simple view to add a Reference to a Project
-    ![](img/fig.24.png)
+Simple view to add a Reference to a Project
+![](img/fig.24.png)
 
 
 
