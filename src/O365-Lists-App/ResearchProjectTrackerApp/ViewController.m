@@ -39,10 +39,10 @@ NSString* token;
     clientId = [NSString alloc];
     redirectUriString = [NSString alloc];
     
-    authority = @"";
-    resourceId = @"";
-    clientId = @"";
-    redirectUriString = @"";
+    authority = @"https://login.windows.net/common";
+    redirectUriString = @"http://android/complete";
+    resourceId = @"https://foxintergen.sharepoint.com";
+    clientId = @"13b04d26-95fc-4fb4-a67e-c850e07822a8";
     
     token = [NSString alloc];
 }
@@ -63,7 +63,7 @@ NSString* token;
         {
             token = t;
             
-            ProjectTableViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"filesvc"];
+            ProjectTableViewController *controller = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"projectList"];
             controller.token = t;
             
             [self.navigationController pushViewController:controller animated:YES];

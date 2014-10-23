@@ -7,5 +7,6 @@
 @interface ProjectTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *ProjectName;
+@property (weak, nonatomic) IBOutlet UILabel *editor;
 
 @end

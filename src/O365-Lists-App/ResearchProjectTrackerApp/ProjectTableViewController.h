@@ -5,8 +5,9 @@
 #import <UIKit/UIKit.h>
 #import "CreateViewController.h"
 
-@interface ProjectTableViewController : UITableViewController
+@interface ProjectTableViewController : UIViewController
 
 @property NSMutableArray *projectsList;
 @property NSString* token;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end

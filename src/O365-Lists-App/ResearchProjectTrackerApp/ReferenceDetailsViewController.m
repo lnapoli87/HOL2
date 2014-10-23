@@ -24,7 +24,8 @@
     self.navigationController.view.backgroundColor = nil;
     self.urlTableCell.scrollEnabled = NO;
     
-    
+    self.descriptionLbl.numberOfLines = 0;
+    [self.descriptionLbl sizeToFit];
     self.descriptionLbl.text = @"";
     self.navigationItem.title = @"aProject";
 }
