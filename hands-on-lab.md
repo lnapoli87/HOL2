@@ -675,11 +675,15 @@ in order to have access to the o365-lists-sdk.
     ```
     - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString* identifier = @"ProjectListCell";
+   NSString* identifier = @"ProjectListCell";
     ProjectTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
     
     ListItem *item = [self.projectsList objectAtIndex:indexPath.row];
     cell.ProjectName.text = [item getTitle];
+    
+    NSDictionary *editorInfo =[item getData:@"Editor"];
+    NSString *editName = [item getData:@"Modified"];
+    cell.lastModifier.text =[NSString stringWithFormat:@"Last modified by %@ on %@", [editorInfo valueForKey:@"Title"],[editName substringToIndex:10]];
     
     return cell;
 }
