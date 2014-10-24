@@ -8,7 +8,7 @@ The lab lets students use an AzureAD account to manage lists in a O365 Sharepoin
 ##Objectives
 
 - Learn how to create a client for O365 to manage lists and listsItems
-- Learn how to add features to create, edit and delete lists and items within an iOS app.
+- Learn how to sadd features to create, edit and delete lists and items within an iOS app.
 
 ##Prerequisites
 
@@ -606,7 +606,9 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)loadData{
     //Create and add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
@@ -743,11 +745,12 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)createProject{
     if(![self.FileNameTxt.text isEqualToString:@""]){
-        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+        double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.view addSubview:spinner];
         spinner.hidesWhenStopped = YES;
-        
         [spinner startAnimating];
         
         ProjectClient* client = [ProjectClient getClient:self.token];
@@ -832,7 +835,9 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)loadData{
     //Create and add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
@@ -991,11 +996,12 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)updateProject{
     if(![self.ProjectNameTxt.text isEqualToString:@""]){
-        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+        double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.view addSubview:spinner];
         spinner.hidesWhenStopped = YES;
-        
         [spinner startAnimating];
         
         ListItem* editedProject = [[ListItem alloc] init];
@@ -1033,13 +1039,14 @@ in order to have access to the o365-lists-sdk.
 
     ```
     -(void)deleteProject{
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
-    
     [spinner startAnimating];
-    
+
     ProjectClient* client = [ProjectClient getClient:self.token];
 
     NSURLSessionTask* task = [client deleteListItem:@"Research Projects" itemId:self.project.Id callback:^(BOOL result, NSError *error) {
@@ -1089,11 +1096,12 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)createReference{
     if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
-        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+        double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.view addSubview:spinner];
         spinner.hidesWhenStopped = YES;
-        
         [spinner startAnimating];
         
         ProjectClient* client = [ProjectClient getClient:self.token];
@@ -1295,11 +1303,12 @@ in order to have access to the o365-lists-sdk.
     ```
     -(void)updateReference{
     if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
-        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+        double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+        double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+        UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self.view addSubview:spinner];
         spinner.hidesWhenStopped = YES;
-        
         [spinner startAnimating];
         
         
@@ -1344,11 +1353,12 @@ in order to have access to the o365-lists-sdk.
 
     ```
     -(void)deleteReference{
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
-    
     [spinner startAnimating];
     
     ProjectClient* client = [ProjectClient getClient:self.token];
@@ -1394,7 +1404,9 @@ a project using a simple screen, without entering the main app.
     ```
     -(void)loadData{
     //Create and add a spinner
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
@@ -1489,11 +1501,12 @@ a project using a simple screen, without entering the main app.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
+    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
+    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
-    
     [spinner startAnimating];
     
     currentEntity= [self.projectsList objectAtIndex:indexPath.row];
