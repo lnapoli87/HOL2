@@ -160,6 +160,7 @@ you have another **client** folder.
     - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
     - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
     - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback;
+    - (NSURLSessionDataTask *)getProjectsAndCallback:(void (^)(NSMutableArray *listItems, NSError *))callback;
     +(ProjectClient*)getClient: (NSString *) token;
     ```
 
@@ -373,6 +374,30 @@ you have another **client** folder.
         }
         
         callback(result, error);
+    }];
+}
+    ```
+
+    Get Projects (with Editor info)
+    ```
+- (NSURLSessionDataTask *)getProjectsAndCallback:(void (^)(NSMutableArray *listItems, NSError *))callback{
+    
+    NSString *aditionalParams = [NSString stringWithFormat:@"?$select=%@&$expand=Editor", [@"ID,Title,Modified,Editor/Title" urlencode]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", self.Url , apiUrl, [@"Research Projects" urlencode],aditionalParams];
+    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential url:url];
+    
+    NSString *method = (NSString*)[[Constants alloc] init].Method_Get;
+    
+    return [connection execute:method callback:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSMutableArray *array = [NSMutableArray array];
+        
+        NSMutableArray *listsItemsArray =[self parseDataArray: data];
+        for (NSDictionary* value in listsItemsArray) {
+            [array addObject: [[ListItem alloc] initWithDictionary:value]];
+        }
+        
+        callback(array ,error);
     }];
 }
     ```
@@ -638,10 +663,10 @@ in order to have access to the o365-lists-sdk.
 
     Get Projects
     ```
-    -(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
+-(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
     ProjectClient* client = [ProjectClient getClient:self.token];
     
-    NSURLSessionTask* listProjectsTask = [client getListItems:@"Research Projects" callback:^(NSMutableArray *listItems, NSError *error) {
+    NSURLSessionTask* listProjectsTask = [client getProjectsAndCallback:^(NSMutableArray *listItems, NSError *error) {
         if(!error){
             self.projectsList = listItems;
             
