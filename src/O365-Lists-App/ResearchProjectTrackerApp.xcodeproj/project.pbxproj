@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C88DE7E1958BB0E00D105A6 /* file_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C88DE781958BB0E00D105A6 /* file_app.xcdatamodeld */; };
+		7D46848E1A01647800E41C4A /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D46848D1A01647800E41C4A /* Auth.plist */; };
 		D92FE07819E408E400FBD6F8 /* EditProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92FE07719E408E400FBD6F8 /* EditProjectViewController.m */; };
 		D92FE08219E40AD400FBD6F8 /* EditReferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92FE08119E40AD400FBD6F8 /* EditReferenceViewController.m */; };
 		D9373EDF19E6CBA600B77673 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ED419D5B80C00CCDEC5 /* Images.xcassets */; };
@@ -149,6 +150,7 @@
 /* Begin PBXFileReference section */
 		3C88DE791958BB0E00D105A6 /* file_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = file_app.xcdatamodel; sourceTree = "<group>"; };
 		3CC805C91958BA4D00E9590E /* ResearchProjectTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchProjectTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D46848D1A01647800E41C4A /* Auth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Auth.plist; path = ResearchProjectTrackerApp/Auth.plist; sourceTree = SOURCE_ROOT; };
 		D92FE07619E408E400FBD6F8 /* EditProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProjectViewController.h; path = ResearchProjectTrackerApp/EditProjectViewController.h; sourceTree = SOURCE_ROOT; };
 		D92FE07719E408E400FBD6F8 /* EditProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProjectViewController.m; path = ResearchProjectTrackerApp/EditProjectViewController.m; sourceTree = SOURCE_ROOT; };
 		D92FE08019E40AD400FBD6F8 /* EditReferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditReferenceViewController.h; path = ResearchProjectTrackerApp/EditReferenceViewController.h; sourceTree = SOURCE_ROOT; };
@@ -300,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				D94CEC5E19D5C82300A52949 /* office365.png */,
+				7D46848D1A01647800E41C4A /* Auth.plist */,
 				D9A90EA819E2B57C001EA85E /* wallpaper-image @2x.png */,
 				D9A90E9B19E2B400001EA85E /* app-icon @2x.png */,
 				D9A90E9C19E2B400001EA85E /* launch-image-ipad @2x.png */,
@@ -580,6 +583,7 @@
 				D9DE4ED919D5B80C00CCDEC5 /* Main.storyboard in Resources */,
 				D9DE4EC919D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard in Resources */,
 				D9A90EA019E2B400001EA85E /* launch-image-iphone @2x.png in Resources */,
+				7D46848E1A01647800E41C4A /* Auth.plist in Resources */,
 				D9DE4EF619D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard in Resources */,
 				D9A90EA919E2B57C001EA85E /* wallpaper-image @2x.png in Resources */,
 				D9DE4EC819D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard in Resources */,
