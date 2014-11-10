@@ -3,7 +3,6 @@
 //
 
 #import "EditReferenceViewController.h"
-#import "office365-base-sdk/OAuthentication.h"
 #import "ProjectDetailsViewController.h"
 
 @interface EditReferenceViewController ()

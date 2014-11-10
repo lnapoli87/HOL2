@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>o365SharepointTenantUrl</key>
-	<string>https://foxintergen.sharepoint.com/ContosoResearchTracker</string>
+	<string></string>
 	<key>authority</key>
-	<string>https://xxx.xxx/xxx</string>
+	<string></string>
 	<key>redirectUriString</key>
-	<string>http://xxx.xxx/xxx</string>
+	<string></string>
 	<key>resourceId</key>
-	<string>https://xxx.xxx/xxx</string>
+	<string></string>
 	<key>clientId</key>
-	<string>xxx-xxx-xxx-xxx</string>
+	<string></string>
 </dict>
 </plist>

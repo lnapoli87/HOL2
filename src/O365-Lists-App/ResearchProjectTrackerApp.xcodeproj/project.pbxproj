@@ -7,16 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C88DE7E1958BB0E00D105A6 /* file_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C88DE781958BB0E00D105A6 /* file_app.xcdatamodeld */; };
 		7D46848E1A01647800E41C4A /* Auth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D46848D1A01647800E41C4A /* Auth.plist */; };
+		D9148AD51A10DAC5009FE1EB /* ADAL_iPad_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9148ACE1A10DAC5009FE1EB /* ADAL_iPad_Storyboard.storyboard */; };
+		D9148AD61A10DAC5009FE1EB /* ADAL_iPhone_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9148ACF1A10DAC5009FE1EB /* ADAL_iPhone_Storyboard.storyboard */; };
+		D9148AD71A10DAC5009FE1EB /* ADALiOSBundle-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9148AD01A10DAC5009FE1EB /* ADALiOSBundle-Info.plist */; };
+		D9148AD81A10DAC5009FE1EB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9148AD31A10DAC5009FE1EB /* InfoPlist.strings */; };
+		D9148ADA1A10DBCF009FE1EB /* libPods-ADALiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9148AD91A10DBCF009FE1EB /* libPods-ADALiOS.a */; };
+		D9148ADD1A10DC6E009FE1EB /* libPods-ADALiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9148ADB1A10DC6E009FE1EB /* libPods-ADALiOS.a */; };
+		D9148ADE1A10DC6E009FE1EB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9148ADC1A10DC6E009FE1EB /* libPods.a */; };
 		D92FE07819E408E400FBD6F8 /* EditProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92FE07719E408E400FBD6F8 /* EditProjectViewController.m */; };
 		D92FE08219E40AD400FBD6F8 /* EditReferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D92FE08119E40AD400FBD6F8 /* EditReferenceViewController.m */; };
 		D9373EDF19E6CBA600B77673 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ED419D5B80C00CCDEC5 /* Images.xcassets */; };
 		D93D393719DC7B96009ECCF6 /* ReferencesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D393619DC7B96009ECCF6 /* ReferencesTableViewCell.m */; };
 		D94CEC5F19D5C82300A52949 /* office365.png in Resources */ = {isa = PBXBuildFile; fileRef = D94CEC5E19D5C82300A52949 /* office365.png */; };
 		D94CEC6919D5E9ED00A52949 /* ProjectDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94CEC6819D5E9ED00A52949 /* ProjectDetailsViewController.m */; };
-		D96A5D2E19E562BF00D2C5C4 /* libADALiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DE4F0019D5B9F900CCDEC5 /* libADALiOS.a */; };
-		D96A5D2F19E562BF00D2C5C4 /* liboffice365-base-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DE4F0B19D5BA0200CCDEC5 /* liboffice365-base-sdk.a */; };
 		D96A5D3819E563E400D2C5C4 /* ADALiOSBundle-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D96A5D3419E563E400D2C5C4 /* ADALiOSBundle-Info.plist */; };
 		D96A5D3919E563E400D2C5C4 /* IPAL_iPad_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D96A5D3619E563E400D2C5C4 /* IPAL_iPad_Storyboard.storyboard */; };
 		D96A5D3A19E563E400D2C5C4 /* IPAL_iPhone_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D96A5D3719E563E400D2C5C4 /* IPAL_iPhone_Storyboard.storyboard */; };
@@ -30,10 +34,6 @@
 		D9A90E9F19E2B400001EA85E /* launch-image-ipad @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A90E9C19E2B400001EA85E /* launch-image-ipad @2x.png */; };
 		D9A90EA019E2B400001EA85E /* launch-image-iphone @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A90E9D19E2B400001EA85E /* launch-image-iphone @2x.png */; };
 		D9A90EA919E2B57C001EA85E /* wallpaper-image @2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A90EA819E2B57C001EA85E /* wallpaper-image @2x.png */; };
-		D9DE4EC819D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EC619D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard */; };
-		D9DE4EC919D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EC719D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard */; };
-		D9DE4ECC19D5B11D00CCDEC5 /* ADALiOSBundle-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ECA19D5B11D00CCDEC5 /* ADALiOSBundle-Info.plist */; };
-		D9DE4ECF19D5B15A00CCDEC5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ECD19D5B15A00CCDEC5 /* InfoPlist.strings */; };
 		D9DE4ED619D5B80C00CCDEC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4ED119D5B80C00CCDEC5 /* AppDelegate.m */; };
 		D9DE4ED819D5B80C00CCDEC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ED419D5B80C00CCDEC5 /* Images.xcassets */; };
 		D9DE4ED919D5B80C00CCDEC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4ED519D5B80C00CCDEC5 /* Main.storyboard */; };
@@ -41,67 +41,21 @@
 		D9DE4EE319D5B83900CCDEC5 /* ProjectTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4EDE19D5B83900CCDEC5 /* ProjectTableViewCell.m */; };
 		D9DE4EE419D5B83900CCDEC5 /* ProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4EDF19D5B83900CCDEC5 /* ProjectTableViewController.m */; };
 		D9DE4EE519D5B83900CCDEC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4EE119D5B83900CCDEC5 /* ViewController.m */; };
-		D9DE4EEB19D5B87D00CCDEC5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EE919D5B87D00CCDEC5 /* InfoPlist.strings */; };
 		D9DE4EF219D5B8CD00CCDEC5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EF019D5B8CD00CCDEC5 /* Info.plist */; };
 		D9DE4EF319D5B8CD00CCDEC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DE4EF119D5B8CD00CCDEC5 /* main.m */; };
-		D9DE4EF619D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EF419D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard */; };
-		D9DE4EF719D5B93900CCDEC5 /* IPAL_iPhone_Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9DE4EF519D5B93900CCDEC5 /* IPAL_iPhone_Storyboard.storyboard */; };
-		D9DE4F3C19D5BA7600CCDEC5 /* libADALiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DE4F0019D5B9F900CCDEC5 /* libADALiOS.a */; };
-		D9DE4F3D19D5BA7600CCDEC5 /* liboffice365-base-sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9DE4F0B19D5BA0200CCDEC5 /* liboffice365-base-sdk.a */; };
 		D9FC857D19E55C9D00C3B15C /* ActionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FC857C19E55C9D00C3B15C /* ActionViewController.m */; };
 		D9FC857F19E55C9D00C3B15C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9FC857E19E55C9D00C3B15C /* MainInterface.storyboard */; };
 		D9FC858219E55C9D00C3B15C /* ResearchProjectTracker.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D9FC857719E55C9D00C3B15C /* ResearchProjectTracker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EAF37C818602794B4FB058C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE79810732C6BCC9B070FEF8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D9DE4EFF19D5B9F900CCDEC5 /* PBXContainerItemProxy */ = {
+		D9148AE11A10E0D5009FE1EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B0965AA17F25770002BDFB8;
-			remoteInfo = ADALiOS;
-		};
-		D9DE4F0119D5B9F900CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8B0965BA17F25770002BDFB8;
-			remoteInfo = ADALiOSTests;
-		};
-		D9DE4F0319D5B9F900CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8BFEF05C182DA57800122C0C;
-			remoteInfo = ADALiOSBundle;
-		};
-		D9DE4F0A19D5BA0200CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC0535E1197D9109009D45F4;
-			remoteInfo = "office365-base-sdk";
-		};
-		D9DE4F0C19D5BA0200CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EC0535F1197D9109009D45F4;
-			remoteInfo = "office365-base-sdkTests";
-		};
-		D9DE4F3219D5BA6D00CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */;
+			containerPortal = 3CC805C11958BA4D00E9590E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = EC0535E0197D9109009D45F4;
-			remoteInfo = "office365-base-sdk";
-		};
-		D9DE4F3A19D5BA6D00CCDEC5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B0965A917F25770002BDFB8;
-			remoteInfo = ADALiOS;
+			remoteGlobalIDString = 3CC805C81958BA4D00E9590E;
+			remoteInfo = ResearchProjectTrackerApp;
 		};
 		D9FC858019E55C9D00C3B15C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -116,20 +70,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D9FC857619E55C9D00C3B15C;
 			remoteInfo = ResearchProjectTracker;
-		};
-		D9FC859019E5624700C3B15C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = EC0535E0197D9109009D45F4;
-			remoteInfo = "office365-base-sdk";
-		};
-		D9FC859819E5624700C3B15C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8B0965A917F25770002BDFB8;
-			remoteInfo = ADALiOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -148,9 +88,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3C88DE791958BB0E00D105A6 /* file_app.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = file_app.xcdatamodel; sourceTree = "<group>"; };
+		068B512DD6E2DC8274D47100 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		1E5CCDE655B677711E668FF1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		3CC805C91958BA4D00E9590E /* ResearchProjectTrackerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResearchProjectTrackerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D46848D1A01647800E41C4A /* Auth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Auth.plist; path = ResearchProjectTrackerApp/Auth.plist; sourceTree = SOURCE_ROOT; };
+		D9148ACE1A10DAC5009FE1EB /* ADAL_iPad_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ADAL_iPad_Storyboard.storyboard; path = ResearchProjectTracker/ADALiOSBundle/ADAL_iPad_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		D9148ACF1A10DAC5009FE1EB /* ADAL_iPhone_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ADAL_iPhone_Storyboard.storyboard; path = ResearchProjectTracker/ADALiOSBundle/ADAL_iPhone_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
+		D9148AD01A10DAC5009FE1EB /* ADALiOSBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "ADALiOSBundle-Info.plist"; path = "ResearchProjectTracker/ADALiOSBundle/ADALiOSBundle-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D9148AD11A10DAC5009FE1EB /* ADALiOSBundle-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ADALiOSBundle-Prefix.pch"; path = "ResearchProjectTracker/ADALiOSBundle/ADALiOSBundle-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		D9148AD41A10DAC5009FE1EB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D9148AD91A10DBCF009FE1EB /* libPods-ADALiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ADALiOS.a"; path = "Pods/build/Debug-iphoneos/libPods-ADALiOS.a"; sourceTree = "<group>"; };
+		D9148ADB1A10DC6E009FE1EB /* libPods-ADALiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ADALiOS.a"; path = "Pods/build/Debug-iphoneos/libPods-ADALiOS.a"; sourceTree = "<group>"; };
+		D9148ADC1A10DC6E009FE1EB /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		D92FE07619E408E400FBD6F8 /* EditProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProjectViewController.h; path = ResearchProjectTrackerApp/EditProjectViewController.h; sourceTree = SOURCE_ROOT; };
 		D92FE07719E408E400FBD6F8 /* EditProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProjectViewController.m; path = ResearchProjectTrackerApp/EditProjectViewController.m; sourceTree = SOURCE_ROOT; };
 		D92FE08019E40AD400FBD6F8 /* EditReferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditReferenceViewController.h; path = ResearchProjectTrackerApp/EditReferenceViewController.h; sourceTree = SOURCE_ROOT; };
@@ -178,11 +127,6 @@
 		D9A90E9C19E2B400001EA85E /* launch-image-ipad @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch-image-ipad @2x.png"; sourceTree = SOURCE_ROOT; };
 		D9A90E9D19E2B400001EA85E /* launch-image-iphone @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch-image-iphone @2x.png"; sourceTree = SOURCE_ROOT; };
 		D9A90EA819E2B57C001EA85E /* wallpaper-image @2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper-image @2x.png"; sourceTree = SOURCE_ROOT; };
-		D9DE4EC619D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ADAL_iPad_Storyboard.storyboard; path = lib/ADALiOS/ADALiOS/ADAL_iPad_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
-		D9DE4EC719D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = ADAL_iPhone_Storyboard.storyboard; path = lib/ADALiOS/ADALiOS/ADAL_iPhone_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
-		D9DE4ECA19D5B11D00CCDEC5 /* ADALiOSBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "ADALiOSBundle-Info.plist"; path = "lib/ADALiOS/ADALiOSBundle/ADALiOSBundle-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D9DE4ECB19D5B11D00CCDEC5 /* ADALiOSBundle-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ADALiOSBundle-Prefix.pch"; path = "lib/ADALiOS/ADALiOSBundle/ADALiOSBundle-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		D9DE4ECE19D5B15A00CCDEC5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = lib/ADALiOS/ADALiOSBundle/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D9DE4ED019D5B80C00CCDEC5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ResearchProjectTrackerApp/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D9DE4ED119D5B80C00CCDEC5 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ResearchProjectTrackerApp/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		D9DE4ED419D5B80C00CCDEC5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ResearchProjectTrackerApp/Images.xcassets; sourceTree = SOURCE_ROOT; };
@@ -195,21 +139,15 @@
 		D9DE4EDF19D5B83900CCDEC5 /* ProjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProjectTableViewController.m; path = ResearchProjectTrackerApp/ProjectTableViewController.m; sourceTree = SOURCE_ROOT; };
 		D9DE4EE019D5B83900CCDEC5 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ResearchProjectTrackerApp/ViewController.h; sourceTree = SOURCE_ROOT; };
 		D9DE4EE119D5B83900CCDEC5 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ResearchProjectTrackerApp/ViewController.m; sourceTree = SOURCE_ROOT; };
-		D9DE4EE619D5B86D00CCDEC5 /* ADALiOSBundle-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "ADALiOSBundle-Info.plist"; path = "lib/ADALiOS/ADALiOSBundle/ADALiOSBundle-Info.plist"; sourceTree = SOURCE_ROOT; };
-		D9DE4EE719D5B86D00CCDEC5 /* ADALiOSBundle-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ADALiOSBundle-Prefix.pch"; path = "lib/ADALiOS/ADALiOSBundle/ADALiOSBundle-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		D9DE4EEA19D5B87D00CCDEC5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = lib/ADALiOS/ADALiOSBundle/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		D9DE4EF019D5B8CD00CCDEC5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ResearchProjectTrackerApp/Info.plist; sourceTree = SOURCE_ROOT; };
 		D9DE4EF119D5B8CD00CCDEC5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ResearchProjectTrackerApp/main.m; sourceTree = SOURCE_ROOT; };
-		D9DE4EF419D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = IPAL_iPad_Storyboard.storyboard; path = ResearchProjectTrackerApp/IPAL_iPad_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
-		D9DE4EF519D5B93900CCDEC5 /* IPAL_iPhone_Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = IPAL_iPhone_Storyboard.storyboard; path = ResearchProjectTrackerApp/IPAL_iPhone_Storyboard.storyboard; sourceTree = SOURCE_ROOT; };
-		D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ADALiOS.xcodeproj; path = lib/ADALiOS/ADALiOS.xcodeproj; sourceTree = "<group>"; };
-		D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "office365-base-sdk.xcodeproj"; path = "lib/office365-base-sdk/office365-base-sdk.xcodeproj"; sourceTree = "<group>"; };
 		D9DE4F4119D5BB7100CCDEC5 /* ResearchProjectApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "ResearchProjectApp-Info.plist"; path = "ResearchProjectTrackerApp/ResearchProjectApp-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D9FC857719E55C9D00C3B15C /* ResearchProjectTracker.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ResearchProjectTracker.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9FC857A19E55C9D00C3B15C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9FC857B19E55C9D00C3B15C /* ActionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionViewController.h; sourceTree = "<group>"; };
 		D9FC857C19E55C9D00C3B15C /* ActionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionViewController.m; sourceTree = "<group>"; };
 		D9FC857E19E55C9D00C3B15C /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		FE79810732C6BCC9B070FEF8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,8 +155,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9DE4F3C19D5BA7600CCDEC5 /* libADALiOS.a in Frameworks */,
-				D9DE4F3D19D5BA7600CCDEC5 /* liboffice365-base-sdk.a in Frameworks */,
+				D9148ADA1A10DBCF009FE1EB /* libPods-ADALiOS.a in Frameworks */,
+				EAF37C818602794B4FB058C5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,38 +164,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D96A5D2E19E562BF00D2C5C4 /* libADALiOS.a in Frameworks */,
-				D96A5D2F19E562BF00D2C5C4 /* liboffice365-base-sdk.a in Frameworks */,
+				D9148ADD1A10DC6E009FE1EB /* libPods-ADALiOS.a in Frameworks */,
+				D9148ADE1A10DC6E009FE1EB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20C3FD62BA00DFFD908D9841 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1E5CCDE655B677711E668FF1 /* Pods.debug.xcconfig */,
+				068B512DD6E2DC8274D47100 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3C2B76EA19991661006156A3 /* ADALiOSBundle */ = {
 			isa = PBXGroup;
 			children = (
-				D9DE4EC619D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard */,
-				D9DE4EC719D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard */,
-				D9DE4ECA19D5B11D00CCDEC5 /* ADALiOSBundle-Info.plist */,
-				D9DE4ECB19D5B11D00CCDEC5 /* ADALiOSBundle-Prefix.pch */,
-				D9DE4ECD19D5B15A00CCDEC5 /* InfoPlist.strings */,
+				D9148ACE1A10DAC5009FE1EB /* ADAL_iPad_Storyboard.storyboard */,
+				D9148ACF1A10DAC5009FE1EB /* ADAL_iPhone_Storyboard.storyboard */,
+				D9148AD01A10DAC5009FE1EB /* ADALiOSBundle-Info.plist */,
+				D9148AD11A10DAC5009FE1EB /* ADALiOSBundle-Prefix.pch */,
+				D9148AD21A10DAC5009FE1EB /* en.lproj */,
 			);
 			name = ADALiOSBundle;
 			path = ../ADALiOSBundle;
-			sourceTree = "<group>";
-		};
-		3C88DE811958BB1900D105A6 /* ADALiOSBundle */ = {
-			isa = PBXGroup;
-			children = (
-				D9DE4EF419D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard */,
-				D9DE4EF519D5B93900CCDEC5 /* IPAL_iPhone_Storyboard.storyboard */,
-				D9DE4EE619D5B86D00CCDEC5 /* ADALiOSBundle-Info.plist */,
-				D9DE4EE719D5B86D00CCDEC5 /* ADALiOSBundle-Prefix.pch */,
-				D9DE4EE919D5B87D00CCDEC5 /* InfoPlist.strings */,
-				3C88DE781958BB0E00D105A6 /* file_app.xcdatamodeld */,
-			);
-			name = ADALiOSBundle;
 			sourceTree = "<group>";
 		};
 		3CC805C01958BA4D00E9590E = {
@@ -268,8 +202,7 @@
 				3CC805CB1958BA4D00E9590E /* ResearchProjectTrackerApp */,
 				D9FC857819E55C9D00C3B15C /* ResearchProjectTrackerExtension */,
 				3CC805CA1958BA4D00E9590E /* Products */,
-				D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */,
-				D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */,
+				20C3FD62BA00DFFD908D9841 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -309,7 +242,6 @@
 				D9A90E9D19E2B400001EA85E /* launch-image-iphone @2x.png */,
 				D9DE4EF019D5B8CD00CCDEC5 /* Info.plist */,
 				D9DE4EF119D5B8CD00CCDEC5 /* main.m */,
-				3C88DE811958BB1900D105A6 /* ADALiOSBundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -323,6 +255,15 @@
 			);
 			name = controllers;
 			sourceTree = "<group>";
+		};
+		D9148AD21A10DAC5009FE1EB /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				D9148AD31A10DAC5009FE1EB /* InfoPlist.strings */,
+			);
+			name = en.lproj;
+			path = ResearchProjectTracker/ADALiOSBundle/en.lproj;
+			sourceTree = SOURCE_ROOT;
 		};
 		D9373ED419E6A7E600B77673 /* Login */ = {
 			isa = PBXGroup;
@@ -394,25 +335,6 @@
 			path = client;
 			sourceTree = "<group>";
 		};
-		D9DE4EF919D5B9F900CCDEC5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D9DE4F0019D5B9F900CCDEC5 /* libADALiOS.a */,
-				D9DE4F0219D5B9F900CCDEC5 /* ADALiOSTests.xctest */,
-				D9DE4F0419D5B9F900CCDEC5 /* ADALiOS.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D9DE4F0619D5BA0200CCDEC5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D9DE4F0B19D5BA0200CCDEC5 /* liboffice365-base-sdk.a */,
-				D9DE4F0D19D5BA0200CCDEC5 /* office365-base-sdkTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D9FC857819E55C9D00C3B15C /* ResearchProjectTrackerExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +362,10 @@
 		ECF2F6E51975A2C800F74623 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9148ADB1A10DC6E009FE1EB /* libPods-ADALiOS.a */,
+				D9148ADC1A10DC6E009FE1EB /* libPods.a */,
+				D9148AD91A10DBCF009FE1EB /* libPods-ADALiOS.a */,
+				FE79810732C6BCC9B070FEF8 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -451,16 +377,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CC805EC1958BA4D00E9590E /* Build configuration list for PBXNativeTarget "ResearchProjectTrackerApp" */;
 			buildPhases = (
+				9D64A39D755881F8E84590BE /* Check Pods Manifest.lock */,
 				3CC805C51958BA4D00E9590E /* Sources */,
 				3CC805C61958BA4D00E9590E /* Frameworks */,
 				3CC805C71958BA4D00E9590E /* Resources */,
 				D9FC858F19E55C9D00C3B15C /* Embed App Extensions */,
+				7B5AFC49F0B2E7F02EF3452C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D9DE4F3319D5BA6D00CCDEC5 /* PBXTargetDependency */,
-				D9DE4F3B19D5BA6D00CCDEC5 /* PBXTargetDependency */,
 				D9FC858119E55C9D00C3B15C /* PBXTargetDependency */,
 				D9FC858419E55C9D00C3B15C /* PBXTargetDependency */,
 			);
@@ -480,8 +406,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D9FC859119E5624700C3B15C /* PBXTargetDependency */,
-				D9FC859919E5624700C3B15C /* PBXTargetDependency */,
+				D9148AE21A10E0D5009FE1EB /* PBXTargetDependency */,
 			);
 			name = ResearchProjectTracker;
 			productName = ResearchProjectTracker;
@@ -516,16 +441,6 @@
 			mainGroup = 3CC805C01958BA4D00E9590E;
 			productRefGroup = 3CC805CA1958BA4D00E9590E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D9DE4EF919D5B9F900CCDEC5 /* Products */;
-					ProjectRef = D9DE4EF819D5B9F900CCDEC5 /* ADALiOS.xcodeproj */;
-				},
-				{
-					ProductGroup = D9DE4F0619D5BA0200CCDEC5 /* Products */;
-					ProjectRef = D9DE4F0519D5BA0200CCDEC5 /* office365-base-sdk.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				3CC805C81958BA4D00E9590E /* ResearchProjectTrackerApp */,
@@ -534,65 +449,24 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		D9DE4F0019D5B9F900CCDEC5 /* libADALiOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libADALiOS.a;
-			remoteRef = D9DE4EFF19D5B9F900CCDEC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9DE4F0219D5B9F900CCDEC5 /* ADALiOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ADALiOSTests.xctest;
-			remoteRef = D9DE4F0119D5B9F900CCDEC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9DE4F0419D5B9F900CCDEC5 /* ADALiOS.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ADALiOS.bundle;
-			remoteRef = D9DE4F0319D5B9F900CCDEC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9DE4F0B19D5BA0200CCDEC5 /* liboffice365-base-sdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "liboffice365-base-sdk.a";
-			remoteRef = D9DE4F0A19D5BA0200CCDEC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D9DE4F0D19D5BA0200CCDEC5 /* office365-base-sdkTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "office365-base-sdkTests.xctest";
-			remoteRef = D9DE4F0C19D5BA0200CCDEC5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		3CC805C71958BA4D00E9590E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D9A90E9F19E2B400001EA85E /* launch-image-ipad @2x.png in Resources */,
+				D9148AD81A10DAC5009FE1EB /* InfoPlist.strings in Resources */,
 				D9A90E9E19E2B400001EA85E /* app-icon @2x.png in Resources */,
-				D9DE4ECC19D5B11D00CCDEC5 /* ADALiOSBundle-Info.plist in Resources */,
 				D9DE4ED919D5B80C00CCDEC5 /* Main.storyboard in Resources */,
-				D9DE4EC919D5B10D00CCDEC5 /* ADAL_iPhone_Storyboard.storyboard in Resources */,
 				D9A90EA019E2B400001EA85E /* launch-image-iphone @2x.png in Resources */,
 				7D46848E1A01647800E41C4A /* Auth.plist in Resources */,
-				D9DE4EF619D5B93900CCDEC5 /* IPAL_iPad_Storyboard.storyboard in Resources */,
+				D9148AD61A10DAC5009FE1EB /* ADAL_iPhone_Storyboard.storyboard in Resources */,
+				D9148AD51A10DAC5009FE1EB /* ADAL_iPad_Storyboard.storyboard in Resources */,
 				D9A90EA919E2B57C001EA85E /* wallpaper-image @2x.png in Resources */,
-				D9DE4EC819D5B10D00CCDEC5 /* ADAL_iPad_Storyboard.storyboard in Resources */,
 				D94CEC5F19D5C82300A52949 /* office365.png in Resources */,
 				D9DE4ED819D5B80C00CCDEC5 /* Images.xcassets in Resources */,
 				D9DE4EF219D5B8CD00CCDEC5 /* Info.plist in Resources */,
-				D9DE4EF719D5B93900CCDEC5 /* IPAL_iPhone_Storyboard.storyboard in Resources */,
-				D9DE4ECF19D5B15A00CCDEC5 /* InfoPlist.strings in Resources */,
-				D9DE4EEB19D5B87D00CCDEC5 /* InfoPlist.strings in Resources */,
+				D9148AD71A10DAC5009FE1EB /* ADALiOSBundle-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -611,6 +485,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7B5AFC49F0B2E7F02EF3452C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D64A39D755881F8E84590BE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3CC805C51958BA4D00E9590E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -623,7 +530,6 @@
 				D9DE4EE219D5B83900CCDEC5 /* CreateViewController.m in Sources */,
 				D9DE4EE419D5B83900CCDEC5 /* ProjectTableViewController.m in Sources */,
 				D9DE4EE519D5B83900CCDEC5 /* ViewController.m in Sources */,
-				3C88DE7E1958BB0E00D105A6 /* file_app.xcdatamodeld in Sources */,
 				D94CEC6919D5E9ED00A52949 /* ProjectDetailsViewController.m in Sources */,
 				D93D393719DC7B96009ECCF6 /* ReferencesTableViewCell.m in Sources */,
 				D92FE08219E40AD400FBD6F8 /* EditReferenceViewController.m in Sources */,
@@ -646,15 +552,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D9DE4F3319D5BA6D00CCDEC5 /* PBXTargetDependency */ = {
+		D9148AE21A10E0D5009FE1EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "office365-base-sdk";
-			targetProxy = D9DE4F3219D5BA6D00CCDEC5 /* PBXContainerItemProxy */;
-		};
-		D9DE4F3B19D5BA6D00CCDEC5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ADALiOS;
-			targetProxy = D9DE4F3A19D5BA6D00CCDEC5 /* PBXContainerItemProxy */;
+			target = 3CC805C81958BA4D00E9590E /* ResearchProjectTrackerApp */;
+			targetProxy = D9148AE11A10E0D5009FE1EB /* PBXContainerItemProxy */;
 		};
 		D9FC858119E55C9D00C3B15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -666,31 +567,13 @@
 			target = D9FC857619E55C9D00C3B15C /* ResearchProjectTracker */;
 			targetProxy = D9FC858319E55C9D00C3B15C /* PBXContainerItemProxy */;
 		};
-		D9FC859119E5624700C3B15C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "office365-base-sdk";
-			targetProxy = D9FC859019E5624700C3B15C /* PBXContainerItemProxy */;
-		};
-		D9FC859919E5624700C3B15C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ADALiOS;
-			targetProxy = D9FC859819E5624700C3B15C /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D9DE4ECD19D5B15A00CCDEC5 /* InfoPlist.strings */ = {
+		D9148AD31A10DAC5009FE1EB /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D9DE4ECE19D5B15A00CCDEC5 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D9DE4EE919D5B87D00CCDEC5 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D9DE4EEA19D5B87D00CCDEC5 /* en */,
+				D9148AD41A10DAC5009FE1EB /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -778,6 +661,7 @@
 		};
 		3CC805ED1958BA4D00E9590E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E5CCDE655B677711E668FF1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -785,8 +669,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ResearchProjectTrackerApp/ResearchProjectApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = ResearchProjectTrackerApp;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -794,6 +681,7 @@
 		};
 		3CC805EE1958BA4D00E9590E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 068B512DD6E2DC8274D47100 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -801,8 +689,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/ResearchProjectTrackerApp/ResearchProjectApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = ResearchProjectTrackerApp;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -810,31 +701,53 @@
 		};
 		D9FC858519E55C9D00C3B15C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E5CCDE655B677711E668FF1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = ResearchProjectTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/BuildHeaders\"/**";
 			};
 			name = Debug;
 		};
 		D9FC858619E55C9D00C3B15C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 068B512DD6E2DC8274D47100 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				INFOPLIST_FILE = ResearchProjectTracker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"${PODS_ROOT}/BuildHeaders\"/**";
 			};
 			name = Release;
 		};
@@ -871,16 +784,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3C88DE781958BB0E00D105A6 /* file_app.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3C88DE791958BB0E00D105A6 /* file_app.xcdatamodel */,
-			);
-			currentVersion = 3C88DE791958BB0E00D105A6 /* file_app.xcdatamodel */;
-			path = file_app.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		D96A5D3D19E5641C00D2C5C4 /* file_app.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
