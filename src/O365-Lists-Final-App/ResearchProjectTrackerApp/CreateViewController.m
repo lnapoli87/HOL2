@@ -24,7 +24,7 @@
         
         ProjectClient* client = [[ProjectClient alloc] init];
         
-        NSURLSessionTask* task = [client addProject:self.FileNameTxt.text token:self.token callback:^(BOOL *success, NSError *error) {
+        NSURLSessionTask* task = [client addProject:self.FileNameTxt.text token:self.token callback:^(NSError *error) {
             if(error == nil){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [spinner stopAnimating];

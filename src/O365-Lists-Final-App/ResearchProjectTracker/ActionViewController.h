@@ -8,8 +8,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ActionViewController : UIViewController
-- (IBAction)Clear:(id)sender;
-- (IBAction)Login:(id)sender;
 @property (strong, nonatomic) IBOutlet UILabel *urlTxt;
 @property (weak, nonatomic) IBOutlet UITableView *projectTable;
 @property (weak, nonatomic) IBOutlet UILabel *successMsg;

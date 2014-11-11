@@ -68,7 +68,7 @@
     
     ProjectClient* client = [[ProjectClient alloc] init];
 
-    /*NSURLSessionTask* task = [client deleteListItem:@"Research Projects" itemId:[self.project valueForKey:@"Id"] callback:^(BOOL result, NSError *error) {
+    NSURLSessionTask* task = [client deleteListItem:@"Research%20Projects" itemId:[self.project valueForKey:@"Id"] token:self.token callback:^(BOOL result, NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [spinner stopAnimating];
@@ -83,6 +83,6 @@
         }
     }];
     
-    [task resume];*/
+    [task resume];
 }
 @end

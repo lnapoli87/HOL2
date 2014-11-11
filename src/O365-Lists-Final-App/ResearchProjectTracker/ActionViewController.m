@@ -3,12 +3,6 @@
 #import "ActionViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface ActionViewController ()
-
-@property(strong,nonatomic) IBOutlet UIImageView *imageView;
-
-@end
-
 @implementation ActionViewController
 
 ADAuthenticationContext* authContext;
@@ -27,7 +21,8 @@ NSDictionary* currentEntity;
     clientId = [NSString alloc];
     redirectUriString = [NSString alloc];
     
-    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSBundle *extensionBundle = [NSBundle bundleWithIdentifier:@"com.intergen.ResearchProjectTrackerApp.ResearchProjectTrackerEx"];
+    NSString* plistPath = [extensionBundle pathForResource:@"Auth" ofType:@"plist"];
     NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     
     authority = [content objectForKey:@"authority"];
@@ -191,7 +186,7 @@ NSDictionary* currentEntity;
     __weak ActionViewController *sself = self;
     ProjectClientEx *client = [[ProjectClientEx alloc ] init];
     
-    NSURLSessionTask* task =[client addReference:dic token:token callback:^(BOOL success, NSError *error) {
+    NSURLSessionTask* task =[client addReference:dic token:token callback:^(NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 sself.projectTable.hidden = true;

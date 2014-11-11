@@ -110,7 +110,7 @@
     
     ProjectClient* client = [[ProjectClient alloc] init];
     
-    /*NSURLSessionTask* task = [client deleteListItem:@"Research References" itemId:[self.selectedReference valueForKey:@"Id"] callback:^(BOOL result, NSError *error) {
+    NSURLSessionTask* task = [client deleteListItem:@"Research%20References" itemId:[self.selectedReference valueForKey:@"Id"] token:self.token callback:^(BOOL result, NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [spinner stopAnimating];
@@ -124,7 +124,7 @@
         }
     }];
     
-    [task resume];*/
+    [task resume];
 }
 
 @end

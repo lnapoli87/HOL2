@@ -2,7 +2,7 @@
 
 @interface ProjectClient : NSObject
 
-- (NSURLSessionDataTask *)addProject:(NSString *)listName token:(NSString *)token callback:(void (^)(BOOL *result, NSError *error))callback;
+- (NSURLSessionDataTask *)addProject:(NSString *)listName token:(NSString *)token callback:(void (^)(NSError *error))callback;
 - (NSURLSessionDataTask *)updateProject:(NSDictionary *)project token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback;
 - (NSURLSessionDataTask *)updateReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback;
 - (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback;

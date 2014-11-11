@@ -5,14 +5,15 @@
 
 const NSString *apiUrl = @"/_api/lists";
 
-- (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback
 {
-    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSBundle *extensionBundle = [NSBundle bundleWithIdentifier:@"com.intergen.ResearchProjectTrackerApp.ResearchProjectTrackerEx"];
+    NSString* plistPath = [extensionBundle pathForResource:@"Auth" ofType:@"plist"];
     NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
     
-    NSString_Extended* referenceListName = @"Research References";
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", shpUrl , apiUrl, [referenceListName urlencode]];
+    NSString_Extended* referenceListName = @"Research%20References";
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", shpUrl , apiUrl, referenceListName];
     
     NSString *json = [[NSString alloc] init];
     json = @"{ 'URL': %@, 'Comments':'%@', 'Project':'%@'}";
@@ -25,8 +26,7 @@ const NSString *apiUrl = @"/_api/lists";
     NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [theRequest setHTTPMethod:@"POST"];
     [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [theRequest setValue:@"MERGE" forHTTPHeaderField:@"X-HTTP-Method"];
-    [theRequest setValue:@"*" forHTTPHeaderField:@"IF-MATCH"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
     [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
     [theRequest setHTTPBody:jsonData];
     
@@ -38,7 +38,7 @@ const NSString *apiUrl = @"/_api/lists";
                                                                      error:nil];
         NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        callback((!jsonResult && [myString isEqualToString:@""]), error);
+        callback(error);
     }];
     
     return task;
@@ -46,32 +46,28 @@ const NSString *apiUrl = @"/_api/lists";
 
 
 - (NSURLSessionDataTask *)getProjectsWithToken:(NSString *)token andCallback:(void (^)(NSMutableArray *listItems, NSError *))callback{
-    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSBundle *extensionBundle = [NSBundle bundleWithIdentifier:@"com.intergen.ResearchProjectTrackerApp.ResearchProjectTrackerEx"];
+    NSString* plistPath = [extensionBundle pathForResource:@"Auth" ofType:@"plist"];
     NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
     
-    NSString_Extended* projectListName = @"Research Projects";
+    NSString_Extended* projectListName = @"Research%20Projects";
     NSString_Extended* filter = @"ID,Title,Modified,Editor/Title";
     NSString *aditionalParams = [NSString stringWithFormat:@"?$select=%@&$expand=Editor", [filter urlencode]];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", shpUrl , apiUrl, [projectListName urlencode],aditionalParams];
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", shpUrl , apiUrl, projectListName, aditionalParams];
     
     
     NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [theRequest setHTTPMethod:@"GET"];
     [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [theRequest setValue:@"MERGE" forHTTPHeaderField:@"X-HTTP-Method"];
-    [theRequest setValue:@"*" forHTTPHeaderField:@"IF-MATCH"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
     [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
     
     
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
-        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
-                                                                   options: NSJSONReadingMutableContainers
-                                                                     error:nil];
-        
-        callback(jsonResult ,error);
+        callback([self parseDataArray:data] ,error);
     }];
     
     return task;
