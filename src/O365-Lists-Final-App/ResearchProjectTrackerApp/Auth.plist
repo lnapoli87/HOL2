@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>o365SharepointTenantUrl</key>
+	<string>https://foxintergenusa.sharepoint.com/ContosoResearchTracker</string>
+	<key>authority</key>
+	<string>https://login.windows.net/common</string>
+	<key>redirectUriString</key>
+	<string>http://example.com/redirect</string>
+	<key>resourceId</key>
+	<string>https://foxintergenusa.sharepoint.com</string>
+	<key>clientId</key>
+	<string>3a164325-14ba-471b-beb8-7b40a9f1a72e</string>
+</dict>
+</plist>
