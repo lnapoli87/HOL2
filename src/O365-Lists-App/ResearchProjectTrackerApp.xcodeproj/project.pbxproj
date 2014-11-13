@@ -50,13 +50,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D9148AE11A10E0D5009FE1EB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3CC805C11958BA4D00E9590E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3CC805C81958BA4D00E9590E;
-			remoteInfo = ResearchProjectTrackerApp;
-		};
 		D9FC858019E55C9D00C3B15C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3CC805C11958BA4D00E9590E /* Project object */;
@@ -406,7 +399,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D9148AE21A10E0D5009FE1EB /* PBXTargetDependency */,
 			);
 			name = ResearchProjectTracker;
 			productName = ResearchProjectTracker;
@@ -552,11 +544,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D9148AE21A10E0D5009FE1EB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3CC805C81958BA4D00E9590E /* ResearchProjectTrackerApp */;
-			targetProxy = D9148AE11A10E0D5009FE1EB /* PBXContainerItemProxy */;
-		};
 		D9FC858119E55C9D00C3B15C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D9FC857619E55C9D00C3B15C /* ResearchProjectTracker */;
