@@ -17,6 +17,7 @@ The lab lets students use an AzureAD account to manage lists in a O365 Sharepoin
 - XCode developer tools (it will install git integration from XCode and the terminal)
 - You must have a Windows Azure subscription to complete this lab.
 - You must have completed Module 04 and linked your Azure subscription with your O365 tenant.
+- You must have Cocoapods dependencies manager already installed on the Mac. (cocoapods.org)
 
 ##Exercises
 
@@ -32,21 +33,23 @@ In this exercise you will use an existing application with the AzureAD authentic
 and create a client class with empty methods in it to handle the requests to the Sharepoint tenant.
 
 ###Task 1 - Open the Project
-01. Download the starting point App:
+01. Clone this git repository in your machine
+
+02. Open a Terminal and navigate to the root folder of the project. Execute the following:
 
     ```
-    git clone 
+    pod install
     ```
 
-02. Open the **.xcodeproj** file in the O365-lists-app
+03. Open the **.xcworkspace** file in the O365-lists-app
 
-03. Find and Open the **ViewController.m** class under **O365-lists-app/controllers/login/**
+04. Find and Open the **Auth.plist**
 
-04. Fill the AzureAD account settings in the **viewDidLoad** method
+05. Fill the AzureAD account settings
     
     ![](img/fig.01.png)
 
-03. Build and Run the project in an iOS Simulator to check the views
+06. Build and Run the project in an iOS Simulator to check the views
 
     ```
     Application:
@@ -60,46 +63,10 @@ and create a client class with empty methods in it to handle the requests to the
     To manage Projects and its References, we have two lists called "Research Projects" and 
     "Research References" in a Office365 Sharepoint tenant.
     Also we have permissions to add, edit and delete items from a list.
-    We will use a files-sdk in order to access the environment using two classes called 
-    "ListEntity" and "ListItem" that have all necesary data to manage the content.
     ```
 
     ![](img/fig.08.png)
 
-###Task 2 - Import the library
-01. Download a copy of the library using the terminal:
-
-    ```
-    git clone 
-    ```
-
-02. Open the downloaded folder and copy **office365-lists-sdk** folder under **Sdk-ObjectiveC**. Paste it in a lib folder inside our project path.
-
-    ![](img/fig.02.png)
-
-03. Drag the **office365-lists-sdk.xcodeproj** file into XCode under our application project.
-    
-    ![](img/fig.03.png)
-
-05. Go to project settings selecting the first file from the files explorer. Then click on **Build Phases** and add an entry in the **Target Dependencies** section.
-
-    ![](img/fig.04.png)
-
-06. Select the **office365-lists-sdk** library dependency.
-
-    ![](img/fig.05.png)
-
-07. Under **Link Binary with Libraries** add an entry pointing to **office365-lists-sdk.a** file
-
-    ![](img/fig.06.png) 
-
-08. Follow steps 05 to 07 again, this time for the **Extension target**.
-
-    ![](img/fig.15.png)
-
-08. Build and Run the application to check everything is ok.
-
-    ![](img/fig.07.png)
 
 <a name="exercise2"></a>
 ##Exercise 2: Create a Client class for all operations
@@ -117,7 +84,7 @@ you have another **client** folder.
 
     ![](img/fig.10.png)
 
-03. In this section, configure the new class giving it a name (**ProjectClient**), and make it a subclass of **ListClient**. Make sure that the language dropdown is set with **Objective-C** because our o365-lists library is written in that programming language. Finally click on **Next**.
+03. In this section, configure the new class giving it a name (**ProjectClient**), and make it a subclass of **NSObject**. Make sure that the language dropdown is set with **Objective-C** because our o365-lists library is written in that programming language. Finally click on **Next**.
 
     ![](img/fig.11.png)    
 
@@ -133,19 +100,7 @@ you have another **client** folder.
 
     ![](img/fig.14.png)
 
-07. Build the Project and you will see 2 errors. To fix them change the import sentences On **ProjectClient.h** and **ProjectClientEx.m**.
-
-    From :
-    ```
-    #import "ListClient.h"
-    ```
-
-    To:
-    ```
-    #import <office365-lists-sdk/ListClient.h>
-    ```
-
-08. Re-build the project and check everything is ok.
+08. Build the project and check everything is ok.
 
 
 
@@ -154,22 +109,16 @@ you have another **client** folder.
 01. Open the **ProjectClient.h** class and then add the following between **@interface** and **@end**
 
     ```
-    - (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback: (void (^)(BOOL success, NSError *error))callback;
-    - (NSURLSessionDataTask *)updateProject:(ListItem *)project callback:(void (^)(BOOL, NSError *))callback;
-    - (NSURLSessionDataTask *)updateReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback;
-    - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
-    - (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
-    - (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback;
-    - (NSURLSessionDataTask *)getProjectsAndCallback:(void (^)(NSMutableArray *listItems, NSError *))callback;
-    +(ProjectClient*)getClient: (NSString *) token;
+    - (NSURLSessionDataTask *)addProject:(NSString *)listName token:(NSString *)token callback:(void (^)(NSError *error))callback;
+- (NSURLSessionDataTask *)updateProject:(NSDictionary *)project token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback;
+- (NSURLSessionDataTask *)updateReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback;
+- (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback;
+- (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId token:(NSString *)token callback:(void (^)(NSMutableArray *listItems, NSError *error))callback;
+- (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId token:(NSString *)token callback:(void (^)(BOOL result, NSError *error))callback;
+- (NSURLSessionDataTask *)getProjectsWithToken:(NSString *)token andCallback:(void (^)(NSMutableArray *listItems, NSError *))callback;
     ```
 
-    Each method is responsible of retrieve data from the O365 tenant and parse it, or manage add, edit, delete actions.
-    Also add the import sentence:
-
-    ```
-    #import <office365-lists-sdk/ListItem.h>
-    ```
+    Each method is responsible of retrieve data from the O365 tenant and parse it, or managing add, edit, delete actions.
 
 02. Add the body of each method in the **ProjectClient.m** file.
 
@@ -177,45 +126,55 @@ you have another **client** folder.
     ```
     const NSString *apiUrl = @"/_api/lists";
 
-- (NSURLSessionDataTask *)addProject:(ListItem *)listItem callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)addProject:(NSString *)projectName token:(NSString *)token callback:(void (^)(NSError *))callback
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research Projects" urlencode]];
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* projectListName = @"Research%20Projects";
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", shpUrl , apiUrl, projectListName ];
     
     NSString *json = [[NSString alloc] init];
-    json = @"{ 'Title': '%@'}}";
+    json = @"{ 'Title': '%@'}";
     
-    NSString *formatedJson = [NSString stringWithFormat:json, [listItem getTitle]];
+    NSString *formatedJson = [NSString stringWithFormat:json, projectName];
     
     NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
     
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential
-                                                                         url:url
-                                                                   bodyArray: jsonData];
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    [theRequest setHTTPBody:jsonData];
     
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Post;
     
-    return [connection execute:method callback:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
-        ListItem *list;
-        
-        if(error == nil){
-            list = [[ListItem alloc] initWithJson:data];
-        }
-        
-        callback(list, error);
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        callback(error);
     }];
+    
+    return task;
 }
     ```
 
     Update Project
     ```
-- (NSURLSessionDataTask *)updateProject:(ListItem *)project callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)updateProject:(NSDictionary *)project token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", self.Url , apiUrl, [@"Research Projects" urlencode], project.Id];
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* projectListName = @"Research%20Projects";
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", shpUrl , apiUrl, projectListName, [project valueForKey:@"Id"]];
     
     NSString *json = [[NSString alloc] init];
     json = @"{ 'Title': '%@'}";
     
-    NSString *formatedJson = [NSString stringWithFormat:json, [project getTitle]];
+    NSString *formatedJson = [NSString stringWithFormat:json, [project valueForKey:@"Title"]];
     
     NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
     
@@ -225,41 +184,45 @@ you have another **client** folder.
     [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [theRequest setValue:@"MERGE" forHTTPHeaderField:@"X-HTTP-Method"];
     [theRequest setValue:@"*" forHTTPHeaderField:@"IF-MATCH"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
     [theRequest setHTTPBody:jsonData];
-    [self.Credential prepareRequest:theRequest];
     
     
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    NSData * data = [NSURLConnection sendSynchronousRequest:theRequest
-                                          returningResponse:&response
-                                                      error:&error];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error:nil];
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        callback((!jsonResult && [myString isEqualToString:@""]), error);
+    }];
     
-    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
-                                                               options: NSJSONReadingMutableContainers
-                                                                 error:nil];
-    NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    callback((!jsonResult && [myString isEqualToString:@""]), error);
-
-    return 0;
+    return task;
 }
+
     ```
 
     Update Reference
     ```
-- (NSURLSessionDataTask *)updateReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)updateReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(BOOL, NSError *))callback
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", self.Url , apiUrl, [@"Research References" urlencode], reference.Id];
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* referenceListName = @"Research%20References";
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", shpUrl , apiUrl, referenceListName, [reference valueForKey:@"Id"]];
     
     NSString *json = [[NSString alloc] init];
     json = @"{ 'Comments': '%@', 'URL':{'Url':'%@', 'Description':'%@'}}";
     
-    NSDictionary *dic =[reference getData:@"URL"];
+    NSDictionary *dic =[reference valueForKey:@"URL"];
     NSString *refUrl = [dic valueForKey:@"Url"];
     NSString *refTitle = [dic valueForKey:@"Description"];
     
-    NSString *formatedJson = [NSString stringWithFormat:json, [reference getData:@"Comments"], refUrl, refTitle];
+    NSString *formatedJson = [NSString stringWithFormat:json, [reference valueForKey:@"Comments"], refUrl, refTitle];
     
     NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
     
@@ -269,100 +232,113 @@ you have another **client** folder.
     [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [theRequest setValue:@"MERGE" forHTTPHeaderField:@"X-HTTP-Method"];
     [theRequest setValue:@"*" forHTTPHeaderField:@"IF-MATCH"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
     [theRequest setHTTPBody:jsonData];
-    [self.Credential prepareRequest:theRequest];
     
     
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    NSData * data = [NSURLConnection sendSynchronousRequest:theRequest
-                                          returningResponse:&response
-                                                      error:&error];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error:nil];
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        callback((!jsonResult && [myString isEqualToString:@""]), error);
+    }];
     
-    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
-                                                               options: NSJSONReadingMutableContainers
-                                                                 error:nil];
-    NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    callback((!jsonResult && [myString isEqualToString:@""]), error);
-    
-    return 0;
+    return task;
 }
     ```
 
     Add Reference
     ```
-- (NSURLSessionDataTask *)addReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research References" urlencode]];
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* referenceListName = @"Research%20References";
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", shpUrl , apiUrl, referenceListName];
     
     NSString *json = [[NSString alloc] init];
     json = @"{ 'URL': %@, 'Comments':'%@', 'Project':'%@'}";
     
-    NSString *formatedJson = [NSString stringWithFormat:json, [reference getData:@"URL"], [reference getData:@"Comments"], [reference getData:@"Project"]];
+    NSString *formatedJson = [NSString stringWithFormat:json, [reference valueForKey:@"URL"], [reference valueForKey:@"Comments"], [reference valueForKey:@"Project"]];
     
     NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
     
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential
-                                                                         url:url
-                                                                   bodyArray: jsonData];
     
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Post;
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    [theRequest setHTTPBody:jsonData];
     
-    return [connection execute:method callback:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
-        ListEntity *list;
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error:nil];
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        if(error == nil){
-            list = [[ListEntity alloc] initWithJson:data];
-        }
-        
-        callback(list, error);
+        callback(error);
     }];
+    
+    return task;
 }
     ```
 
     Get References by Project
     ```
-- (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId callback:(void (^)(NSMutableArray *listItems, NSError *error))callback{
-    NSString *queryString = [NSString stringWithFormat:@"Project eq '%@'", projectId];
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items?$filter=%@", self.Url , apiUrl, [@"Research References" urlencode], [queryString urlencode]];
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential url:url];
+- (NSURLSessionDataTask *)getReferencesByProjectId:(NSString *)projectId token:(NSString *)token callback:(void (^)(NSMutableArray *listItems, NSError *error))callback{
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
     
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Get;
+    NSString_Extended* referenceListName = @"Research%20References";
+    NSString_Extended *queryString = [NSString stringWithFormat:@"Project eq '%@'", projectId];
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items?$filter=%@", shpUrl , apiUrl, referenceListName, [queryString urlencode]];
     
-    return [connection execute:method callback:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
-                                                                   options: NSJSONReadingMutableContainers
-                                                                     error:nil];
-        
-        NSMutableArray *array = [NSMutableArray array];
-        
-        NSMutableArray *listsItemsArray =[self parseDataArray: data];
-        for (NSDictionary* value in listsItemsArray) {
-            [array addObject: [[ListItem alloc] initWithDictionary:value]];
-        }
-        
-        callback(array ,error);
+    
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"GET"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        callback([self parseDataArray:data] ,error);
     }];
+    
+    return task;
 }
     ```
 
     Delete an Item
     ```
-- (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId callback:(void (^)(BOOL result, NSError *error))callback{
+- (NSURLSessionDataTask *)deleteListItem:(NSString *)name itemId:(NSString *)itemId token:(NSString *)token callback:(void (^)(BOOL result, NSError *error))callback{
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
     
-    //NSString *queryString = [NSString stringWithFormat:@"filter=Id eq '%@'", itemId];
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", self.Url , apiUrl, [name urlencode], itemId];
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items(%@)", shpUrl , apiUrl, name, itemId];
+   
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"DELETE"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"MERGE" forHTTPHeaderField:@"X-HTTP-Method"];
+    [theRequest setValue:@"*" forHTTPHeaderField:@"IF-MATCH"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
     
     
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential
-                                                                         url:url
-                                                                   bodyArray: nil];
-    
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Delete;
-    
-    return [connection execute:method callback:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
-        
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
         NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
                                                                    options: NSJSONReadingMutableContainers
                                                                      error:nil];
@@ -375,30 +351,39 @@ you have another **client** folder.
         
         callback(result, error);
     }];
+    
+    return task;
 }
+
     ```
 
     Get Projects (with Editor info)
     ```
-- (NSURLSessionDataTask *)getProjectsAndCallback:(void (^)(NSMutableArray *listItems, NSError *))callback{
+- (NSURLSessionDataTask *)getProjectsWithToken:(NSString *)token andCallback:(void (^)(NSMutableArray *listItems, NSError *))callback{
+    NSString* plistPath = [[NSBundle mainBundle] pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
     
-    NSString *aditionalParams = [NSString stringWithFormat:@"?$select=%@&$expand=Editor", [@"ID,Title,Modified,Editor/Title" urlencode]];
+    NSString_Extended* projectListName = @"Research%20Projects";
+    NSString_Extended* filter = @"ID,Title,Modified,Editor/Title";
+    NSString *aditionalParams = [NSString stringWithFormat:@"?$select=%@&$expand=Editor", [filter urlencode]];
     
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", self.Url , apiUrl, [@"Research Projects" urlencode],aditionalParams];
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential url:url];
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", shpUrl , apiUrl, projectListName, aditionalParams];
     
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Get;
     
-    return [connection execute:method callback:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSMutableArray *array = [NSMutableArray array];
-        
-        NSMutableArray *listsItemsArray =[self parseDataArray: data];
-        for (NSDictionary* value in listsItemsArray) {
-            [array addObject: [[ListItem alloc] initWithDictionary:value]];
-        }
-        
-        callback(array ,error);
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"GET"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        callback([self parseDataArray:data] ,error);
     }];
+    
+    return task;
 }
     ```
 
@@ -447,81 +432,97 @@ you have another **client** folder.
 }
     ```
 
-04. Add the **getClient** class method
+
+
+04. Add the following import sentence:
 
     ```
-    +(ProjectClient*)getClient: (NSString *) token{
-    OAuthentication* authentication = [OAuthentication alloc];
-    [authentication setToken:token];
-    
-    return [[ProjectClient alloc] initWithUrl:@"https://xxx.xxx/xxx"
-                                  credentials: authentication];
-    }
+    #import "NSString_Extended.h"
     ```
 
-    ```
-    Make sure to change https://xxx.xxx/xxx with the Resource url in the 
-    initWithUrl:credentials: method.
-    ```
+05. Build the project and check everything is ok.
 
-05. Add the following import sentences:
+06. In **ProjectClientEx.h** header file, add the following declaration between **@interface** and **@end**
 
     ```
-    #import "office365-base-sdk/HttpConnection.h"
-    #import "office365-base-sdk/Constants.h"
-    #import "office365-base-sdk/NSString+NSStringExtensions.h"
-    #import "office365-base-sdk/OAuthentication.h"
+    - (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback;
+- (NSURLSessionDataTask *)getProjectsWithToken:(NSString *)token andCallback:(void (^)(NSMutableArray *listItems, NSError *))callback;
     ```
 
-06. Build the project and check everything is ok.
-
-07. In **ProjectClientEx.h** header file, add the following declaration between **@interface** and **@end**
-
-    ```
-    - (NSURLSessionDataTask *)addReference:(ListItem *)reference callback: (void (^)(BOOL success, NSError *error))callback;
-    +(ProjectClientEx*)getClient: (NSString *) token;
-    ```
-    And the import sentence:
-    ```
-    #import "office365-lists-sdk/ListItem.h"
-    ```
-
-08. Now on **ProjectClientEx.m** add the method body:
+07. Now on **ProjectClientEx.m** add the method body:
 
     ```
 const NSString *apiUrl = @"/_api/lists";
 
-- (NSURLSessionDataTask *)addReference:(ListItem *)reference callback:(void (^)(BOOL, NSError *))callback
+- (NSURLSessionDataTask *)addReference:(NSDictionary *)reference token:(NSString *)token callback:(void (^)(NSError *))callback
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", self.Url , apiUrl, [@"Research References" urlencode]];
+    NSBundle *extensionBundle = [NSBundle bundleWithIdentifier:@"com.intergen.ResearchProjectTrackerApp.ResearchProjectTrackerEx"];
+    NSString* plistPath = [extensionBundle pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* referenceListName = @"Research%20References";
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items", shpUrl , apiUrl, referenceListName];
     
     NSString *json = [[NSString alloc] init];
     json = @"{ 'URL': %@, 'Comments':'%@', 'Project':'%@'}";
     
-    NSString *formatedJson = [NSString stringWithFormat:json, [reference getData:@"URL"], [reference getData:@"Comments"], [reference getData:@"Project"]];
+    NSString *formatedJson = [NSString stringWithFormat:json, [reference valueForKey:@"URL"], [reference valueForKey:@"Comments"], [reference valueForKey:@"Project"]];
     
     NSData *jsonData = [formatedJson dataUsingEncoding: NSUTF8StringEncoding];
     
-    HttpConnection *connection = [[HttpConnection alloc] initWithCredentials:self.Credential
-                                                                         url:url
-                                                                   bodyArray: jsonData];
     
-    NSString *method = (NSString*)[[Constants alloc] init].Method_Post;
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"POST"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    [theRequest setHTTPBody:jsonData];
     
-    return [connection execute:method callback:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
-        ListEntity *list;
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:data
+                                                                   options: NSJSONReadingMutableContainers
+                                                                     error:nil];
+        NSString *myString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
-        if(error == nil){
-            list = [[ListEntity alloc] initWithJson:data];
-        }
-        
-        callback(list, error);
+        callback(error);
     }];
-    return 0;
+    
+    return task;
+}
+
+- (NSURLSessionDataTask *)getProjectsWithToken:(NSString *)token andCallback:(void (^)(NSMutableArray *listItems, NSError *))callback{
+    NSBundle *extensionBundle = [NSBundle bundleWithIdentifier:@"com.intergen.ResearchProjectTrackerApp.ResearchProjectTrackerEx"];
+    NSString* plistPath = [extensionBundle pathForResource:@"Auth" ofType:@"plist"];
+    NSDictionary *content = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+    NSString* shpUrl = [content objectForKey:@"o365SharepointTenantUrl"];
+    
+    NSString_Extended* projectListName = @"Research%20Projects";
+    NSString_Extended* filter = @"ID,Title,Modified,Editor/Title";
+    NSString *aditionalParams = [NSString stringWithFormat:@"?$select=%@&$expand=Editor", [filter urlencode]];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@/GetByTitle('%@')/Items%@", shpUrl , apiUrl, projectListName, aditionalParams];
+    
+    
+    NSMutableURLRequest *theRequest=[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [theRequest setHTTPMethod:@"GET"];
+    [theRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [theRequest setValue:@"application/json; odata=verbose" forHTTPHeaderField:@"accept"];
+    [theRequest addValue:[NSString stringWithFormat: @"Bearer %@", token] forHTTPHeaderField: @"Authorization"];
+    
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:theRequest completionHandler:^(NSData  *data, NSURLResponse *reponse, NSError *error) {
+        callback([self parseDataArray:data] ,error);
+    }];
+    
+    return task;
 }
     ```
 
-09. Add the **JSON** handling methods:
+08. Add the **JSON** handling methods:
 
     Parsing Results
     ```
@@ -566,33 +567,13 @@ const NSString *apiUrl = @"/_api/lists";
 }
     ```
 
-10. Add the **getClient** class method:
+09. Add the following import sentences on **ProjectClientEx.m**
 
     ```
-+(ProjectClientEx*)getClient: (NSString *) token{
-    OAuthentication* authentication = [OAuthentication alloc];
-    [authentication setToken:token];
-    
-    return [[ProjectClientEx alloc] initWithUrl:@"https://xxx.xxx/xxx"
-                                  credentials: authentication];
-}
-    ```
-
-    ```
-    Make sure to change https://xxx.xxx/xxx with the Resource url in the 
-    initWithUrl:credentials: method.
-    ```
-
-11. Add the following import sentences on **ProjectClientEx.m**
-
-    ```
-#import "office365-base-sdk/HttpConnection.h"
-#import "office365-base-sdk/Constants.h"
 #import "office365-base-sdk/NSString+NSStringExtensions.h"
-#import "office365-base-sdk/OAuthentication.h"
     ```
 
-12. Build and Run the application and check everything is ok.
+10. Build and Run the application and check everything is ok.
 
 <a name="exercise3"></a>
 ##Exercise 3: Connect actions in the view to ProjectClient class
@@ -639,34 +620,9 @@ in order to have access to the o365-lists-sdk.
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
     
-    ProjectClient* client = [ProjectClient getClient:self.token];
+    ProjectClient* client = [[ProjectClient alloc] init];
     
-   NSURLSessionTask* task = [client getList:@"Research Projects" callback:^(ListEntity *list, NSError *error) {
-        
-    //If list doesn't exists, create one with name Research Projects
-   if(list){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self getProjectsFromList:spinner];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self createProjectList:spinner];
-            });
-        }
-        
-    }];
-    [task resume];
-}
-    ```
-
-03. Add the body for the **getProjectsFromList** and **createProjectList** methods
-
-    Get Projects
-    ```
--(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
-    ProjectClient* client = [ProjectClient getClient:self.token];
-    
-    NSURLSessionTask* listProjectsTask = [client getProjectsAndCallback:^(NSMutableArray *listItems, NSError *error) {
+    NSURLSessionTask* listProjectsTask = [client getProjectsWithToken:self.token andCallback:^(NSMutableArray *listItems, NSError *error) {
         if(!error){
             self.projectsList = listItems;
             
@@ -680,41 +636,27 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-    Create Project List
-    ```
--(void)createProjectList:(UIActivityIndicatorView *) spinner{
-    ProjectClient* client = [ProjectClient getClient:self.token];
-    
-    ListEntity* newList = [[ListEntity alloc ] init];
-    [newList setTitle:@"Research Projects"];
-    
-    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
-        [spinner stopAnimating];
-    }];
-    [createProjectListTask resume];
-}
-    ```
 
-04. Now fill the table with the projects information
+03. Now fill the table with the projects information
 
     ```
-    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   NSString* identifier = @"ProjectListCell";
+    NSString* identifier = @"ProjectListCell";
     ProjectTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
     
-    ListItem *item = [self.projectsList objectAtIndex:indexPath.row];
-    cell.ProjectName.text = [item getTitle];
+    NSDictionary *item = [self.projectsList objectAtIndex:indexPath.row];
+    cell.ProjectName.text = [item valueForKey:@"Title"];
     
-    NSDictionary *editorInfo =[item getData:@"Editor"];
-    NSString *editName = [item getData:@"Modified"];
-    cell.lastModifier.text =[NSString stringWithFormat:@"Last modified by %@ on %@", [editorInfo valueForKey:@"Title"],[editName substringToIndex:10]];
+    NSDictionary *editorInfo =[item valueForKey:@"Editor"];
+    NSString *editDate = [item valueForKey:@"Modified"];
+    cell.lastModifier.text =[NSString stringWithFormat:@"Last modified by %@ on %@", [editorInfo valueForKey:@"Title"],[editDate substringToIndex:10]];
     
     return cell;
 }
     ```
 
-05. Get projects count
+04. Get projects count
     
     ```
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -723,7 +665,7 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-06. Row selection
+05. Row selection
     
     ```
     - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -734,7 +676,7 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-07. Set the selectedProject when navigate forward
+06. Set the selectedProject when navigate forward
 
     ```
     - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -751,19 +693,19 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-08. Add the instance variable for the selected project:
+07. Add the instance variable for the selected project:
 
     ```
-    ListItem* currentEntity;
+    NSDictionary* currentEntity;
     ```
 
-09. Add the import sentence for the ProjectClient class
+08. Add the import sentence for the ProjectClient class
 
     ```
     #import "ProjectClient.h"
     ```
 
-10. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
+09. Build and Run the app, and check everything is ok. You will see the project lists in the main screen
 
     ![](img/fig.17.png)
 
@@ -772,7 +714,7 @@ in order to have access to the o365-lists-sdk.
 01. Open **CreateViewController.m** and add the body to the **createProject** method
 
     ```
-    -(void)createProject{
+-(void)createProject{
     if(![self.FileNameTxt.text isEqualToString:@""]){
         double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
         double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
@@ -782,14 +724,9 @@ in order to have access to the o365-lists-sdk.
         spinner.hidesWhenStopped = YES;
         [spinner startAnimating];
         
-        ProjectClient* client = [ProjectClient getClient:self.token];
+        ProjectClient* client = [[ProjectClient alloc] init];
         
-        ListItem* newProject = [[ListItem alloc] init];
-        
-        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[@"Title",self.FileNameTxt.text] forKeys:@[@"_metadata",@"Title"]];
-        [newProject initWithDictionary:dic];
-        
-        NSURLSessionTask* task = [client addProject:newProject callback:^(BOOL success, NSError *error) {
+        NSURLSessionTask* task = [client addProject:self.FileNameTxt.text token:self.token callback:^(NSError *error) {
             if(error == nil){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [spinner stopAnimating];
@@ -809,6 +746,7 @@ in order to have access to the o365-lists-sdk.
         });
     }
 }
+
     ```
 
 02. Add the import sentence to the **ProjectClient** class
@@ -827,13 +765,8 @@ in order to have access to the o365-lists-sdk.
 01. Open **ProjectDetailsViewController.h** and add the following variables
 
     ```
-    @property ListItem* project;
-    @property ListItem* selectedReference;
-    ```
-
-    And add the import sentence
-    ```
-    #import "office365-lists-sdk/ListItem.h"
+    @property NSDictionary* project;
+    @property NSDictionary* selectedReference;
     ```
 
 02. Set the value when the user selects a project in the list. On **ProjectTableViewController.m**
@@ -846,24 +779,20 @@ in order to have access to the o365-lists-sdk.
 03. Back to the **ProjectDetailsViewController.m** Set the fields and screen title text on the **viewDidLoad** method
 
     ```
-    -(void)viewDidLoad{
-    self.projectName.text = self.project.getTitle;
-    self.navigationItem.title = self.project.getTitle;
+-(void)viewDidLoad{
+    self.projectName.text = [self.project valueForKey:@"Title"];
+    self.navigationItem.title = [self.project valueForKey:@"Title"];
     self.navigationItem.rightBarButtonItem.title = @"Done";
     self.selectedReference = false;
     self.projectNameField.hidden = true;
-    
-    
-    [self loadData];
-    }
+}
     ```
 
 04. Load the references
 
     Load data method
     ```
-    -(void)loadData{
-    //Create and add a spinner
+-(void)loadData{
     double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
     double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
     UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
@@ -872,33 +801,15 @@ in order to have access to the o365-lists-sdk.
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
     
-    ProjectClient* client = [ProjectClient getClient:self.token];
+    ProjectClient* client = [[ProjectClient alloc] init];
     
-    NSURLSessionTask* task = [client getList:@"Research References" callback:^(ListEntity *list, NSError *error) {
-        
-        //If list doesn't exists, create one with name Research References
-        if(list){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self getReferences:spinner];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self createReferencesList:spinner];
-            });
-        }
-        
-    }];
-    [task resume];
-    
+    [self getReferences:spinner];    
 }
-    ```
 
-    Get References Method
-    ```
-        -(void)getReferences:(UIActivityIndicatorView *) spinner{
-    ProjectClient* client = [ProjectClient getClient:self.token];
+-(void)getReferences:(UIActivityIndicatorView *) spinner{
+    ProjectClient* client = [[ProjectClient alloc] init];
     
-    NSURLSessionTask* listReferencesTask = [client getReferencesByProjectId:self.project.Id callback:^(NSMutableArray *listItems, NSError *error) {
+    NSURLSessionTask* listReferencesTask = [client getReferencesByProjectId:[self.project valueForKey:@"Id"] token:self.token callback:^(NSMutableArray *listItems, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.references = [listItems copy];
                 [self.refencesTable reloadData];
@@ -911,31 +822,17 @@ in order to have access to the o365-lists-sdk.
 }
     ```
 
-    Create References Lists if not exists
-    ```
-    -(void)createReferencesList:(UIActivityIndicatorView *) spinner{
-    ProjectClient* client = [ProjectClient getClient:self.token];
-    
-    ListEntity* newList = [[ListEntity alloc ] init];
-    [newList setTitle:@"Research References"];
-    
-    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
-        [spinner stopAnimating];
-    }];
-    [createProjectListTask resume];
-}
-    ```
 
 05. Fill the table cells
 
     ```
-    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* identifier = @"referencesListCell";
     ReferencesTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
     
-    ListItem *item = [self.references objectAtIndex:indexPath.row];
-    NSDictionary *dic =[item getData:@"URL"];
+    NSDictionary *item = [self.references objectAtIndex:indexPath.row];
+    NSDictionary *dic =[item valueForKey:@"URL"];
     cell.titleField.text = [dic valueForKey:@"Description"];
     cell.urlField.text = [dic valueForKey:@"Url"];
     
@@ -1006,12 +903,7 @@ in order to have access to the o365-lists-sdk.
 
     First, add a variable **project** in the **EditProjectViewController.h**
     ```
-    @property ListItem* project;
-    ```
-
-    And the import sentence
-    ```
-    #import "office365-lists-sdk/ListItem.h"
+    @property NSDictionary* project;
     ```
 
 02. On the **ProjectDetailsViewController.m**, uncomment this line in the **prepareForSegue:sender:** method
@@ -1023,7 +915,7 @@ in order to have access to the o365-lists-sdk.
 03. Back to **EditProjectViewController.m**. Add the body for **updateProject**
 
     ```
-    -(void)updateProject{
+-(void)updateProject{
     if(![self.ProjectNameTxt.text isEqualToString:@""]){
         double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
         double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
@@ -1033,14 +925,11 @@ in order to have access to the o365-lists-sdk.
         spinner.hidesWhenStopped = YES;
         [spinner startAnimating];
         
-        ListItem* editedProject = [[ListItem alloc] init];
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[@"Title",self.ProjectNameTxt.text, [self.project valueForKey:@"Id"]] forKeys:@[@"_metadata",@"Title",@"Id"]];
         
-        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[@"Title",self.ProjectNameTxt.text, self.project.Id] forKeys:@[@"_metadata",@"Title",@"Id"]];
-        [editedProject initWithDictionary:dic];
+        ProjectClient* client = [[ProjectClient alloc]init];
         
-        ProjectClient* client = [ProjectClient getClient:self.token];
-        
-        NSURLSessionTask* task = [client updateProject:editedProject callback:^(BOOL result, NSError *error) {
+        NSURLSessionTask* task = [client updateProject:dic token:self.token callback:^(BOOL result, NSError *error) {
             if(error == nil){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [spinner stopAnimating];
@@ -1067,7 +956,7 @@ in order to have access to the o365-lists-sdk.
 04. Do the same for **deleteProject**
 
     ```
-    -(void)deleteProject{
+-(void)deleteProject{
     double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
     double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
     UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
@@ -1075,10 +964,10 @@ in order to have access to the o365-lists-sdk.
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
+    
+    ProjectClient* client = [[ProjectClient alloc] init];
 
-    ProjectClient* client = [ProjectClient getClient:self.token];
-
-    NSURLSessionTask* task = [client deleteListItem:@"Research Projects" itemId:self.project.Id callback:^(BOOL result, NSError *error) {
+    NSURLSessionTask* task = [client deleteListItem:@"Research%20Projects" itemId:[self.project valueForKey:@"Id"] token:self.token callback:^(BOOL result, NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [spinner stopAnimating];
@@ -1100,11 +989,12 @@ in order to have access to the o365-lists-sdk.
 05. Set the **viewDidLoad** initialization
 
     ```
-    -(void)viewDidLoad{
-    self.ProjectNameTxt.text = self.project.getTitle;
-    self.navigationItem.title = @"Edit Project";
-    self.navigationItem.rightBarButtonItem.title = @"Done";
-    }
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
+    self.ProjectNameTxt.text = [self.project valueForKey:@"Title"];
+    self.navigationController.title = @"Edit Project";
+}
     ```
 
 06. Add the import sentence to the **ProjectClient** class
@@ -1123,7 +1013,7 @@ in order to have access to the o365-lists-sdk.
 01. On the **CreateReferenceViewController.m** add the body for the **createReference** method
 
     ```
-    -(void)createReference{
+-(void)createReference{
     if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
         double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
         double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
@@ -1133,15 +1023,13 @@ in order to have access to the o365-lists-sdk.
         spinner.hidesWhenStopped = YES;
         [spinner startAnimating];
         
-        ProjectClient* client = [ProjectClient getClient:self.token];
+        ProjectClient* client = [[ProjectClient alloc] init];
         
         NSString* obj = [NSString stringWithFormat:@"{'Url':'%@', 'Description':'%@'}", self.referenceUrlTxt.text, self.referenceTitle.text];
-        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, self.referenceDescription.text, [NSString stringWithFormat:@"%@", self.project.Id]] forKeys:@[@"URL", @"Comments", @"Project"]];
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, self.referenceDescription.text, [NSString stringWithFormat:@"%@", [self.project valueForKey:@"Id"]]] forKeys:@[@"URL", @"Comments", @"Project"]];
         
-        ListItem* newReference = [[ListItem alloc] initWithDictionary:dic];
-        
-        NSURLSessionTask* task = [client addReference:newReference callback:^(BOOL success, NSError *error) {
-            if(error == nil && success){
+        NSURLSessionTask* task = [client addReference:dic token:self.token callback:^(NSError *error) {
+            if(error == nil){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [spinner stopAnimating];
                     [self.navigationController popViewControllerAnimated:YES];
@@ -1179,12 +1067,7 @@ in order to have access to the o365-lists-sdk.
 03. Back in **CreateReferenceViewController.h**, add the variable
 
     ```
-    @property ListItem* project;
-    ```
-
-    And add the import
-    ```
-    #import "office365-lists-sdk/ListItem.h"
+    @property NSDictionary* project;
     ```
 
 04. Build and Run the app, and check everything is ok. Now you can add a reference to a project
@@ -1196,7 +1079,7 @@ in order to have access to the o365-lists-sdk.
 01. On **ReferenceDetailsViewController.m** add the initialization method
 
     ```
-    - (void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     
@@ -1206,13 +1089,15 @@ in order to have access to the o365-lists-sdk.
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.view.backgroundColor = nil;
     
-    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    NSDictionary *dic =[self.selectedReference valueForKey:@"URL"];
     
-    if(![[self.selectedReference getData:@"Comments"] isEqual:[NSNull null]]){
-        self.descriptionLbl.text = [self.selectedReference getData:@"Comments"];
+    if(![[self.selectedReference valueForKey:@"Comments"] isEqual:[NSNull null]]){
+        self.descriptionLbl.text = [self.selectedReference valueForKey:@"Comments"];
     }else{
         self.descriptionLbl.text = @"";
     }
+    self.descriptionLbl.numberOfLines = 0;
+    [self.descriptionLbl sizeToFit];
     self.urlTableCell.scrollEnabled = NO;
     self.navigationItem.title = [dic valueForKey:@"Description"];
 }
@@ -1221,14 +1106,14 @@ in order to have access to the o365-lists-sdk.
 02. Add the table actions
 
     ```
-    - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString* identifier = @"referenceDetailsTableCell";
     ReferenceDetailTableCellTableViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
     
-    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    NSDictionary *dic =[self.selectedReference valueForKey:@"URL"];
     
     cell.urlContentLBL.text = [dic valueForKey:@"Url"];
     
@@ -1236,7 +1121,7 @@ in order to have access to the o365-lists-sdk.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    NSDictionary *dic =[self.selectedReference valueForKey:@"URL"];
     NSURL *url = [NSURL URLWithString:[dic valueForKey:@"Url"]];
     
     if (![[UIApplication sharedApplication] openURL:url]) {
@@ -1260,12 +1145,7 @@ in order to have access to the o365-lists-sdk.
 04. On **ReferenceDetailsViewController.h**, add the variable:
 
     ```
-    @property ListItem* selectedReference;
-    ```
-
-    And the import sentence
-    ```
-    #import "office365-lists-sdk/ListItem.h"
+    @property NSDictionary* selectedReference;
     ```
 
 05. On the **ProjectDetailsViewController.m** uncomment this line on the method **prepareForSegue:sender:**
@@ -1290,18 +1170,13 @@ in order to have access to the o365-lists-sdk.
 02. On **EditReferenceViewController.h** add a variable:
 
     ```
-    @property ListItem* selectedReference;
-    ```
-
-    And the import sentence
-    ```
-    #import "office365-lists-sdk/ListItem.h"
+    @property NSDictionary* selectedReference;
     ```
 
 03. On the **EditReferenceViewController.m**, change the **viewDidLoad** method
 
     ```
-    - (void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     
@@ -1313,12 +1188,12 @@ in order to have access to the o365-lists-sdk.
     
     self.navigationController.view.backgroundColor = nil;
     
-    NSDictionary *dic =[self.selectedReference getData:@"URL"];
+    NSDictionary *dic =[self.selectedReference valueForKey:@"URL"];
     
     self.referenceUrlTxt.text = [dic valueForKey:@"Url"];
     
-    if(![[self.selectedReference getData:@"Comments"] isEqual:[NSNull null]]){
-        self.referenceDescription.text = [self.selectedReference getData:@"Comments"];
+    if(![[self.selectedReference valueForKey:@"Comments"] isEqual:[NSNull null]]){
+        self.referenceDescription.text = [self.selectedReference valueForKey:@"Comments"];
     }else{
         self.referenceDescription.text = @"";
     }
@@ -1330,7 +1205,7 @@ in order to have access to the o365-lists-sdk.
 04. Change the **updateReference** method
 
     ```
-    -(void)updateReference{
+-(void)updateReference{
     if((![self.referenceUrlTxt.text isEqualToString:@""]) && (![self.referenceDescription.text isEqualToString:@""]) && (![self.referenceTitle.text isEqualToString:@""])){
         double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
         double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
@@ -1341,18 +1216,14 @@ in order to have access to the o365-lists-sdk.
         [spinner startAnimating];
         
         
-        ListItem* editedReference = [[ListItem alloc] init];
-        
         NSDictionary* urlDic = [NSDictionary dictionaryWithObjects:@[self.referenceUrlTxt.text, self.referenceTitle.text] forKeys:@[@"Url",@"Description"]];
         
-        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[urlDic, self.referenceDescription.text, [self.selectedReference getData:@"Project"], self.selectedReference.Id] forKeys:@[@"URL",@"Comments",@"Project",@"Id"]];
-        
-        [editedReference initWithDictionary:dic];
+        NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[urlDic, self.referenceDescription.text, [self.selectedReference valueForKey:@"Project"], [self.selectedReference valueForKey:@"Id"]] forKeys:@[@"URL",@"Comments",@"Project",@"Id"]];
         
 
-        ProjectClient* client = [ProjectClient getClient:self.token];
+        ProjectClient* client = [[ProjectClient alloc] init];
         
-        NSURLSessionTask* task = [client updateReference:editedReference callback:^(BOOL result, NSError *error) {
+        NSURLSessionTask* task = [client updateReference:dic token:self.token callback:^(BOOL result, NSError *error) {
             if(error == nil && result){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [spinner stopAnimating];
@@ -1381,7 +1252,7 @@ in order to have access to the o365-lists-sdk.
 05. Change the **deleteReference**
 
     ```
-    -(void)deleteReference{
+-(void)deleteReference{
     double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
     double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
     UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
@@ -1390,9 +1261,9 @@ in order to have access to the o365-lists-sdk.
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
     
-    ProjectClient* client = [ProjectClient getClient:self.token];
+    ProjectClient* client = [[ProjectClient alloc] init];
     
-    NSURLSessionTask* task = [client deleteListItem:@"Research References" itemId:self.selectedReference.Id callback:^(BOOL result, NSError *error) {
+    NSURLSessionTask* task = [client deleteListItem:@"Research%20References" itemId:[self.selectedReference valueForKey:@"Id"] token:self.token callback:^(BOOL result, NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [spinner stopAnimating];
@@ -1431,28 +1302,24 @@ a project using a simple screen, without entering the main app.
 01. Add the **loadData** method body on **ActionViewController.m**
 
     ```
-    -(void)loadData{
+-(void)loadData{
     //Create and add a spinner
-    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
-    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
     [spinner startAnimating];
     
-    ProjectClientEx* client = [ProjectClientEx getClient:token];
+    ProjectClientEx *client = [[ProjectClientEx alloc] init];
     
-    NSURLSessionTask* task = [client getList:@"Research Projects" callback:^(ListEntity *list, NSError *error) {
+    NSURLSessionTask* task = [client getProjectsWithToken:token andCallback:^(NSMutableArray *list, NSError *error) {
         
-        //If list doesn't exists, create one with name Research Projects
-        if(list){
+        if(!error){
+            self.projectsList = list;
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self getProjectsFromList:spinner];
-            });
-        }else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self createProjectList:spinner];
+                [self.projectTable reloadData];
+                [spinner stopAnimating];
             });
         }
         
@@ -1468,56 +1335,19 @@ a project using a simple screen, without entering the main app.
 
     And an instance variable between **@implementation** and **@end**
     ```
-    ListEntity* currentEntity 
+    NSDictionary* currentEntity 
     ```    
 
-
-02. Load Projects from the list
-
-    ```
-    -(void)getProjectsFromList:(UIActivityIndicatorView *) spinner{
-    ProjectClientEx* client = [ProjectClientEx getClient:token];
-    
-    NSURLSessionTask* listProjectsTask = [client getListItems:@"Research Projects" callback:^(NSMutableArray *listItems, NSError *error) {
-        if(!error){
-            self.projectsList = listItems;
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.projectTable reloadData];
-                [spinner stopAnimating];
-            });
-        }
-    }];
-    [listProjectsTask resume];
-}
-    ```
-
-03. Create the List if not exists
+02. Finally add the table actions and events, including the selection and the references sharing
 
     ```
-    -(void)createProjectList:(UIActivityIndicatorView *) spinner{
-    ProjectClientEx* client = [ProjectClientEx getClient:token];
-    
-    ListEntity* newList = [[ListEntity alloc ] init];
-    [newList setTitle:@"Research Projects"];
-    
-    NSURLSessionTask* createProjectListTask = [client createList:newList :^(ListEntity *list, NSError *error) {
-        [spinner stopAnimating];
-    }];
-    [createProjectListTask resume];
-}
-    ```
-
-04. Finally add the table actions and events, including the selection and the references sharing
-
-    ```
-    - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* identifier = @"ProjectListCell";
     ProjectTableExtensionViewCell *cell =[tableView dequeueReusableCellWithIdentifier: identifier ];
     
-    ListItem *item = [self.projectsList objectAtIndex:indexPath.row];
-    cell.ProjectName.text = [item getTitle];
+    NSDictionary *item = [self.projectsList objectAtIndex:indexPath.row];
+    cell.ProjectName.text = [item valueForKey:@"Title"];
     
     return cell;
 }
@@ -1530,30 +1360,28 @@ a project using a simple screen, without entering the main app.
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    double x = ((self.navigationController.view.frame.size.width) - 20)/ 2;
-    double y = ((self.navigationController.view.frame.size.height) - 150)/ 2;
-    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(x, y, 20, 20)];
+    UIActivityIndicatorView* spinner = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(135,140,50,50)];
     spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:spinner];
     spinner.hidesWhenStopped = YES;
+    
     [spinner startAnimating];
     
     currentEntity= [self.projectsList objectAtIndex:indexPath.row];
     
     NSString* obj = [NSString stringWithFormat:@"{'Url':'%@', 'Description':'%@'}", self.urlTxt.text, @""];
-    NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, @"", [NSString stringWithFormat:@"%@", currentEntity.Id]] forKeys:@[@"URL", @"Comments", @"Project"]];
-    
-    ListItem* newReference = [[ListItem alloc] initWithDictionary:dic];
+    NSDictionary* dic = [NSDictionary dictionaryWithObjects:@[obj, @"", [NSString stringWithFormat:@"%@", [currentEntity valueForKey:@"Id"]]] forKeys:@[@"URL", @"Comments", @"Project"]];
     
     __weak ActionViewController *sself = self;
+    ProjectClientEx *client = [[ProjectClientEx alloc ] init];
     
-    NSURLSessionTask* task =[[ProjectClientEx getClient:token] addReference:newReference callback:^(BOOL success, NSError *error) {
+    NSURLSessionTask* task =[client addReference:dic token:token callback:^(NSError *error) {
         if(error == nil){
             dispatch_async(dispatch_get_main_queue(), ^{
                 sself.projectTable.hidden = true;
                 sself.selectProjectLbl.hidden = true;
                 sself.successMsg.hidden = false;
-                sself.successMsg.text = [NSString stringWithFormat:@"Reference added successfully to the %@ Project.", [currentEntity getTitle]];
+                sself.successMsg.text = [NSString stringWithFormat:@"Reference added successfully to the %@ Project.", [currentEntity valueForKey:@"Title"]];
                 [spinner stopAnimating];
             });
         }
